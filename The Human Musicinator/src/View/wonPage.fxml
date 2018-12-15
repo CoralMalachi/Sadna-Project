@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="771.0" prefWidth="652.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.WonPageController">
+   <children>
+      <Label layoutX="207.0" layoutY="103.0" prefHeight="71.0" prefWidth="239.0" text="You Won!">
+         <font>
+            <Font size="49.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="273.0" fitWidth="266.0" layoutX="193.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@winner.png" />
+         </image></ImageView>
+      <Label layoutX="240.0" layoutY="604.0" prefHeight="64.0" prefWidth="173.0" text="Congratulations!">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="253.0" layoutY="668.0" prefHeight="54.0" prefWidth="147.0" text="You did it!">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
