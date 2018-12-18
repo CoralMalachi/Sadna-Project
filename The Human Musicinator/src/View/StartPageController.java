@@ -32,7 +32,7 @@ public class StartPageController {
 //            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("a.fxml"));
 //            Parent root = (Parent) fxmlLoader.load();
 
-            new Login().setVisible(true);
+            //new Login().setVisible(true);
 
             Stage stage = new Stage();
             //stage.setScene(new Scene(root));
