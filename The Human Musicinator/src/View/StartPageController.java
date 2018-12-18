@@ -5,11 +5,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
+//todo Coral : I already wrote this page in "MainMenuController.java"
+//todo Coral: i'm not sure if we need to use ActionEvents at all because we don't use them
 
 public class StartPageController {
     public void pressButtonRegister(ActionEvent login_event){
         //TODO: forward to register page (by limor)
+        //todo Coral: I wrote the Register page
 
 //        try {
 //            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("register.fxml"));

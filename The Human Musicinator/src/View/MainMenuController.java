@@ -46,7 +46,6 @@ public class MainMenuController {
     @FXML
     public void pressShowHighScoreTableButton() throws IOException{
         this.stage = (Stage) highScoreTableButton.getScene().getWindow();
-        BorderPane root;
         this.root = FXMLLoader.load(getClass().getResource("HighScoreTable.fxml"));
         Scene scene = new Scene(this.root);
         //scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
