@@ -13,16 +13,16 @@ public class StartPageController {
         //TODO: forward to register page (by limor)
         //todo Coral: I wrote the Register page
 
-//        try {
-//            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("register.fxml"));
-//            Parent root = (Parent) fxmlLoader.load();
-//            Stage stage = new Stage();
-//            stage.setScene(new Scene(root));
-//            stage.show();
-//            Main.stg.close();
-//        } catch(Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Register.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            Main.stg.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
         System.out.print("Register");
         //Pane root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
@@ -30,16 +30,14 @@ public class StartPageController {
 
     public void pressButtonLogin (ActionEvent register_event){
         System.out.print("Login!");
+        //move to login page
         try {
-//            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("a.fxml"));
-//            Parent root = (Parent) fxmlLoader.load();
-
-            //new Login().setVisible(true);
-
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
-            //stage.setScene(new Scene(root));
-            //stage.show();
-            //Main.stg.close();
+            stage.setScene(new Scene(root));
+            stage.show();
+            Main.stg.close();
         } catch(Exception e) {
             e.printStackTrace();
         }
