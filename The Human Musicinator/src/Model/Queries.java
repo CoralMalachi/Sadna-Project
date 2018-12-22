@@ -18,9 +18,8 @@ public class Queries {
     //select the place which the artist born in
     public static final String bornPlaceQuery = "SELECT area.name FROM area INNER JOIN artist ON area.id=artist.area and artist.id =";
 
-    public static void main(String[] args) {
-
-    }
+    //select the gender of the artist
+    public static final String genderQuery = "SELECT gender.name FROM gender INNER JOIN artist ON gender.id=artist.gender and artist.id =";
 
 
 
