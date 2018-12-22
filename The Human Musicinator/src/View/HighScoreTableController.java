@@ -2,6 +2,7 @@ package View;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -24,14 +25,13 @@ public class HighScoreTableController {
     public void pressGoToMenuButton(){
         //todo: use the controller function that reset the game
         try {
-            //start new game - go to choosing game difficulty form
-            this.stage = (Stage) backToMenuButton.getScene().getWindow();
-            this.root = FXMLLoader.load(getClass().getResource("ChooseGameDifficulty.fxml"));
-            Scene scene = new Scene(this.root);
-            //scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-            this.stage.setScene(scene);
-            this.stage.show();
-        }catch(IOException e){
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MainMenu.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            Main.stg.close();
+        } catch(Exception e) {
             e.printStackTrace();
         }
     }

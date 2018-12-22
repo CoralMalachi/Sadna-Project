@@ -2,6 +2,7 @@ package View;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -26,33 +27,45 @@ public class ChooseGameDifficultyController {
     @FXML
     public void pressHardButton() throws IOException {
         //todo: update the Controller (of the whole application) about the game difficulty
-        this.stage = (Stage) hardButton.getScene().getWindow();
-        this.root = FXMLLoader.load(getClass().getResource("StartPage.fxml"));
-        Scene scene = new Scene(this.root);
-        //scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-        this.stage.setScene(scene);
-        this.stage.show();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("StartPage.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            Main.stg.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
-    public void pressMediumButton() throws IOException{
+    public void pressMediumButton() throws IOException {
         //todo: update the Controller (of the whole application) about the game difficulty
-        this.stage = (Stage) mediumButton.getScene().getWindow();
-        this.root = FXMLLoader.load(getClass().getResource("StartPage.fxml"));
-        Scene scene = new Scene(this.root);
-        //scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-        this.stage.setScene(scene);
-        this.stage.show();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("StartPage.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            Main.stg.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
-    public void pressEasyButton() throws IOException{
+    public void pressEasyButton() throws IOException {
         //todo: update the Controller (of the whole application) about the game difficulty
-        this.stage = (Stage) easyButton.getScene().getWindow();
-        this.root = FXMLLoader.load(getClass().getResource("StartPage.fxml"));
-        Scene scene = new Scene(this.root);
-        //scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-        this.stage.setScene(scene);
-        this.stage.show();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("StartPage.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            Main.stg.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

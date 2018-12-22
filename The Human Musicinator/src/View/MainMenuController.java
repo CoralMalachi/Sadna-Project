@@ -1,6 +1,7 @@
 package View;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -25,32 +26,44 @@ public class MainMenuController {
 
     @FXML
     public void pressRegisterButton() throws IOException {
-        this.stage = (Stage) registerButton.getScene().getWindow();
-        this.root = FXMLLoader.load(getClass().getResource("Register.fxml"));
-        Scene scene = new Scene(this.root);
-        //scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-        this.stage.setScene(scene);
-        this.stage.show();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Register.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            Main.stg.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     public void pressLoginButton() throws IOException{
-        this.stage = (Stage) loginButton.getScene().getWindow();
-        this.root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-        Scene scene = new Scene(this.root);
-        //scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-        this.stage.setScene(scene);
-        this.stage.show();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            Main.stg.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     public void pressShowHighScoreTableButton() throws IOException{
-        this.stage = (Stage) highScoreTableButton.getScene().getWindow();
-        this.root = FXMLLoader.load(getClass().getResource("HighScoreTable.fxml"));
-        Scene scene = new Scene(this.root);
-        //scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-        this.stage.setScene(scene);
-        this.stage.show();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("HighScoreTable.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            Main.stg.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

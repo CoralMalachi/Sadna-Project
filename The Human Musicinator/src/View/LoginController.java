@@ -1,9 +1,13 @@
 package View;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * Created by limor on 18/12/2018.
@@ -26,7 +30,18 @@ public class LoginController {
         }
 
         if (isUserExistInDB(idNumber)) {
-            //Todo: use the controller function that starts the game
+            //Todo: save the user in DB and restart game
+            try {
+                System.out.print("limor and coral");
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ChooseGameDifficulty.fxml"));
+                Parent root = (Parent) fxmlLoader.load();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+                Main.stg.close();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
