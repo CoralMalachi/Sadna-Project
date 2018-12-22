@@ -1,19 +1,19 @@
-package Model;
+package model;
 
-/**
- * Created by user on 01/12/2018.
- */
+import util.Record;
+import util.User;
+import java.util.List;
+
 public interface IModel {
-    void createDB();
-
-    Hint getHintFromDB(String tableName, Difficulty difficulty);
-
     boolean registerUser(User user);
-
+    
     boolean loginUser(User user);
 
-    boolean addScoreToTable(int score, User user);
+    boolean insertIntoRecordsTable(Record Record);
 
-    boolean addGameData();//num retries, type os music
+    List<Hint> getHintList(String difficulty);
 
+    Entity getEntity(String difficulty);
+
+    List<Record> getRecords(String difficulty);
 }
