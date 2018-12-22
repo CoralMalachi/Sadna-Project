@@ -6,14 +6,14 @@ import java.util.List;
 
 public interface IModel {
     boolean registerUser(User user);
-    
+
     boolean loginUser(User user);
 
     boolean insertIntoRecordsTable(Record Record);
 
-    List<Hint> getHintList(String difficulty);
+    //List<Hint> getHintList(String difficulty);
 
-    Entity getEntity(String difficulty);
+    //Entity getEntity(String difficulty);
 
     List<Record> getRecords(String difficulty);
 }
