@@ -7,8 +7,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 public class LoseController {
     //todo Coral: why do you get playAgainEvent parameter? do we need it? you just need
-    //todo Coral: to reset the game (function in the controller) + change the window to
     public void pressButtonPlayAgain(ActionEvent playAgainEvent){
+        //todo : use the "resetGame" function in the controller
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ChooseGameDifficulty.fxml"));
             Parent root = (Parent) fxmlLoader.load();
@@ -19,7 +19,6 @@ public class LoseController {
         } catch(Exception e) {
             e.printStackTrace();
         }
-        //todo : use the "resetGame" function in the controller
     }
     public void pressButtonMenu(ActionEvent backMenuEvent){
         try {
@@ -32,9 +31,5 @@ public class LoseController {
         } catch(Exception e) {
             e.printStackTrace();
         }
-        //System.out.print("Login");
-        //Pane root = FXMLLoader.load(getClass().getResource("sample.fxml"));
     }
-
-
 }

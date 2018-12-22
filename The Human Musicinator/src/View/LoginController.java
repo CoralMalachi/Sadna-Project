@@ -32,7 +32,6 @@ public class LoginController {
         if (isUserExistInDB(idNumber)) {
             //Todo: save the user in DB and restart game
             try {
-                System.out.print("limor and coral");
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ChooseGameDifficulty.fxml"));
                 Parent root = (Parent) fxmlLoader.load();
                 Stage stage = new Stage();
