@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import util.Record;
 import util.User;
