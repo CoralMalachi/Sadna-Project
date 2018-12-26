@@ -6,7 +6,7 @@
 //
 //public class Main {
 //    public static void main(String[] args) {
-//        Model m = new Model();
+//        model m = new model();
 //        User u = new User();
 //        u.username = "Test";
 //        u.password = "Pass";

@@ -1,4 +1,4 @@
-package View;
+package view;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +14,7 @@ public class LoseController {
             Parent root = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+            stage.setFullScreen(true);
             stage.show();
             Main.stg.close();
         } catch(Exception e) {
@@ -26,6 +27,7 @@ public class LoseController {
             Parent root = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+            stage.setFullScreen(true);
             stage.show();
             Main.stg.close();
         } catch(Exception e) {
