@@ -60,11 +60,26 @@ public class Queries {
 
     //select random album of the artist - by level (easy/hard) - use Release group & release_group_primary_type (tell us if its a album/single
 
+    //get artist_alias of the artist
+
+    /**
+     * UNTESTED.
+     */
     //number of albums artist has - FIRST DRAFT UNTESTED.
     public static final String numberOfReleasesQuery = "SELECT count(*) FROM release_group INNER JOIN artist_credit INNER JOIN artist_credit_name ON release_group.artist_credit = artist_credit.id AND artist_credit.name = artist_credit_name.name AND atrist_credit_name.artist = ?";
 
-    //get artist_alias of the artist
 
+    /**
+     * TESTED.
+     */
+    // Checks if a username is already in use (registered) when trying to register a username. Set should be empty if the username is not taken.
+    public static final String checkIfRegisteredQuery = "SELECT * FROM UserList WHERE UserName = ?";
+
+    // Registeres a new username.
+    public static final String registerUserUpdate = "INSERT INTO Userlist VALUES ('0', ?, ?)";
+
+    // Tries to login a user, checks if the username and password given are in the database.
+    public static final String loginUserQuery = "SELECT * FROM Userlist WHERE UserName = ? AND UserPassword = ?";
 
 
 

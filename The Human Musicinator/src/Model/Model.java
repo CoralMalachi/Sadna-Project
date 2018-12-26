@@ -1,8 +1,11 @@
 package model;
 
 import java.sql.*;
+
 import util.User;
 import util.Record;
+import util.Entity;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -31,7 +34,7 @@ public class Model {
      */
     public boolean registerUser(User user) {
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement checkStmt = conn.prepareStatement("SELECT * FROM UserList WHERE UserName = ?");
+             PreparedStatement checkStmt = conn.prepareStatement(Queries.checkIfRegisteredQuery);
              PreparedStatement registerStmt = conn.prepareStatement("INSERT INTO Userlist VALUES ('0', ?, ?)")) {
             // Checks if this username is already taken, returns false if it is.
             checkStmt.setString(1, user.username);
@@ -60,7 +63,7 @@ public class Model {
      */
     public boolean loginUser(User user) {
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Userlist WHERE UserName = ? AND UserPassword = ?")) {
+             PreparedStatement stmt = conn.prepareStatement(Queries.loginUserQuery)) {
             stmt.setString(1, user.username);
             stmt.setString(2, user.password);
             ResultSet rs = stmt.executeQuery();
@@ -126,6 +129,26 @@ public class Model {
             se.printStackTrace();
             return null;
         } catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    Entity getEntity(String difficulty) {
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement stmt = conn.prepareStatement(Queries.idQuery)) {
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                Entity entity = new Entity();
+                entity.id = rs.getInt("id");
+                entity.name = rs.getString("name");
+                return entity;
+            }
+            return null;                 
+        } catch (SQLException se) {
+            se.printStackTrace();
+            return null;
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
