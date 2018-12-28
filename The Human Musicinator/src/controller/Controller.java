@@ -9,42 +9,22 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class Controller implements IMusicinatorController{
+
     @FXML
-    private Button hardButton;
-    @FXML
-    private Button mediumButton;
-    @FXML
-    private Button easyButton;
-    @FXML
-    private Stage stage;
-    @FXML
-    private BorderPane root;
+    private Stage stage = new Stage();
     @FXML
     private TextField answerTextBox;
     @FXML
     private Label hintLabel;
     @FXML
-    private Button backToMenuButton;
+    private TextField passwordTextBox;
     @FXML
-    private TextField idNumberTextBox;
-    @FXML
-    private Button registerButton;
-    @FXML
-    private Button loginButton;
-    @FXML
-    private Button highScoreTableButton;
-    @FXML
-    private TextField firstNameTextBox;
-    @FXML
-    private TextField lastNameTextBox;
-    @FXML
-    private Button submitButton;
+    private TextField userNameTextBox;
 
     public boolean checkPattern(String userGuess){
         return true;
@@ -80,10 +60,9 @@ public class Controller implements IMusicinatorController{
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/StartPage.fxml"));
             Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setFullScreen(true);
-            stage.show();
+            this.stage.setScene(new Scene(root));
+            this.stage.setFullScreen(true);
+            this.stage.show();
             Main.stg.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -96,10 +75,9 @@ public class Controller implements IMusicinatorController{
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/StartPage.fxml"));
             Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setFullScreen(true);
-            stage.show();
+            this.stage.setScene(new Scene(root));
+            this.stage.setFullScreen(true);
+            this.stage.show();
             Main.stg.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,10 +90,9 @@ public class Controller implements IMusicinatorController{
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/StartPage.fxml"));
             Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setFullScreen(true);
-            stage.show();
+            this.stage.setScene(new Scene(root));
+            this.stage.setFullScreen(true);
+            this.stage.show();
             Main.stg.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -146,10 +123,9 @@ public class Controller implements IMusicinatorController{
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/MainMenu.fxml"));
             Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setFullScreen(true);
-            stage.show();
+            this.stage.setScene(new Scene(root));
+            this.stage.setFullScreen(true);
+            this.stage.show();
             Main.stg.close();
         } catch(Exception e) {
             e.printStackTrace();
@@ -172,7 +148,7 @@ public class Controller implements IMusicinatorController{
     @FXML
     public void pressButtonLogin()
     {
-        String idNumber = idNumberTextBox.getText();
+        String idNumber = this.idNumberTextBox.getText();
 
         if(!isValidIdNumber(idNumber)){
             Alert wrongIdAlert = new Alert(Alert.AlertType.WARNING);
@@ -189,10 +165,9 @@ public class Controller implements IMusicinatorController{
                 System.out.print("limor and coral");
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/ChooseGameDifficulty.fxml"));
                 Parent root = (Parent) fxmlLoader.load();
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.setFullScreen(true);
-                stage.show();
+                this.stage.setScene(new Scene(root));
+                this.stage.setFullScreen(true);
+                this.stage.show();
                 Main.stg.close();
             }
             catch(Exception e) {
@@ -208,10 +183,9 @@ public class Controller implements IMusicinatorController{
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/ChooseGameDifficulty.fxml"));
             Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setFullScreen(true);
-            stage.show();
+            this.stage.setScene(new Scene(root));
+            this.stage.setFullScreen(true);
+            this.stage.show();
             Main.stg.close();
         } catch(Exception e) {
             e.printStackTrace();
@@ -223,10 +197,9 @@ public class Controller implements IMusicinatorController{
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Register.fxml"));
             Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setFullScreen(true);
-            stage.show();
+            this.stage.setScene(new Scene(root));
+            this.stage.setFullScreen(true);
+            this.stage.show();
             Main.stg.close();
         } catch(Exception e) {
             e.printStackTrace();
@@ -238,10 +211,9 @@ public class Controller implements IMusicinatorController{
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Login.fxml"));
             Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setFullScreen(true);
-            stage.show();
+            this.stage.setScene(new Scene(root));
+            this.stage.setFullScreen(true);
+            this.stage.show();
             Main.stg.close();
         } catch(Exception e) {
             e.printStackTrace();
@@ -253,10 +225,9 @@ public class Controller implements IMusicinatorController{
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/HighScoreTable.fxml"));
             Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setFullScreen(true);
-            stage.show();
+            this.stage.setScene(new Scene(root));
+            this.stage.setFullScreen(true);
+            this.stage.show();
             Main.stg.close();
         } catch(Exception e) {
             e.printStackTrace();
@@ -264,21 +235,19 @@ public class Controller implements IMusicinatorController{
     }
     @FXML
     public void pressButtonSubmit(){
-        String userFirstName = firstNameTextBox.getText();
-        String userLastName = lastNameTextBox.getText();
-        String idNumber = idNumberTextBox.getText();
+        String userName = this.userNameTextBox.getText();
+        String userPassword = this.passwordTextBox.getText();
 
-        if(isValidFirstName(userFirstName) &&
-                isValidLastName(userLastName) ){
+        if(isValidUserName(userName) &&
+                isValidLastName(userPassword) ){
             //todo :use the controller function to add the user to the DB
             //go to login page
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Login.fxml"));
                 Parent root = (Parent) fxmlLoader.load();
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.setFullScreen(true);
-                stage.show();
+                this.stage.setScene(new Scene(root));
+                this.stage.setFullScreen(true);
+                this.stage.show();
                 Main.stg.close();
             } catch(Exception e) {
                 e.printStackTrace();
@@ -289,7 +258,7 @@ public class Controller implements IMusicinatorController{
         }
     }
 
-    private boolean isValidFirstName(String firstName) {
+    private boolean isValidUserName(String firstName) {
         return firstName.matches( "[A-Z][a-zA-Z]*" );
     }
 
@@ -301,10 +270,9 @@ public class Controller implements IMusicinatorController{
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/MainMenu.fxml"));
             Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setFullScreen(true);
-            stage.show();
+            this.stage.setScene(new Scene(root));
+            this.stage.setFullScreen(true);
+            this.stage.show();
             Main.stg.close();
         } catch(Exception e) {
             e.printStackTrace();
