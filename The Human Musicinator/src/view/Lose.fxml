@@ -24,7 +24,7 @@
         <Image url="@Lose.jpg" />
       </image>
     </ImageView>
-    <Button fx:id="playAgainEvent" layoutX="412.0" layoutY="491.0" mnemonicParsing="false" onAction="#print" prefHeight="64.0" prefWidth="128.0" text="Play again">
+    <Button fx:id="playAgainEvent" layoutX="412.0" layoutY="491.0" mnemonicParsing="false" onAction="#pressButtonPlayAgain" prefHeight="64.0" prefWidth="128.0" text="Play again">
       <font>
         <Font size="18.0" fx:id="x1" />
       </font>

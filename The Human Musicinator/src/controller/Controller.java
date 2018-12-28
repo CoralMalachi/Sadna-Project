@@ -100,6 +100,7 @@ public class Controller implements IMusicinatorController{
     @FXML
     public void pressGetHintButton(){
         //todo: use the controller function to get hint from the db
+        //decrease the score of the user
         String hint = "hint";//get the hint from controller
         this.hintLabel.setText(hint);
     }
