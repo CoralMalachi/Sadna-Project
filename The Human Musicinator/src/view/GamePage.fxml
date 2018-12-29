@@ -23,7 +23,6 @@
         <TextField fx:id="scoreTextBox" layoutX="71.0" layoutY="16.0" prefWidth="65.0" />
         <TextField fx:id="answerTextBox" layoutX="128.0" layoutY="285.0" prefWidth="235.0" />
         <Button fx:id="getHintButton" layoutX="190.0" layoutY="74.0" mnemonicParsing="false" onAction="#pressGetHintButton" text="Get hint" />
-        <Label fx:id="hintLabel" layoutX="71.0" layoutY="118.0" prefHeight="144.94140625" prefWidth="354.0" text="" />
         <ImageView fitHeight="59.0" fitWidth="59.0" layoutX="411.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
           <image>
             <Image url="@musicLogo.png" />
@@ -35,6 +34,11 @@
           </image>
         </ImageView>
         <Button fx:id="cheatButton" layoutX="369.0" layoutY="345.0" mnemonicParsing="false" onAction="#pressCheatButton" text="cheat" />
+        <ScrollPane fx:id="hintsScrollPane" layoutX="122.0" layoutY="127.0" prefHeight="145.0" prefWidth="261.0">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+          </content>
+        </ScrollPane>
       </children>
     </Pane>
   </children>

@@ -6,45 +6,25 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class Controller implements IMusicinatorController{
+
     @FXML
-    private Button hardButton;
-    @FXML
-    private Button mediumButton;
-    @FXML
-    private Button easyButton;
-    @FXML
-    private Stage stage;
-    @FXML
-    private BorderPane root;
+    private Stage stage = new Stage();
     @FXML
     private TextField answerTextBox;
     @FXML
-    private Label hintLabel;
+    private ScrollPane hintsScrollPane;
     @FXML
-    private Button backToMenuButton;
+    private TextField passwordTextBox;
     @FXML
-    private TextField idNumberTextBox;
-    @FXML
-    private Button registerButton;
-    @FXML
-    private Button loginButton;
-    @FXML
-    private Button highScoreTableButton;
-    @FXML
-    private TextField firstNameTextBox;
-    @FXML
-    private TextField lastNameTextBox;
-    @FXML
-    private Button submitButton;
+    private TextField userNameTextBox;
 
     public boolean checkPattern(String userGuess){
         return true;
@@ -80,10 +60,9 @@ public class Controller implements IMusicinatorController{
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/StartPage.fxml"));
             Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setFullScreen(true);
-            stage.show();
+            this.stage.setScene(new Scene(root));
+            this.stage.setFullScreen(true);
+            this.stage.show();
             Main.stg.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -96,10 +75,9 @@ public class Controller implements IMusicinatorController{
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/StartPage.fxml"));
             Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setFullScreen(true);
-            stage.show();
+            this.stage.setScene(new Scene(root));
+            this.stage.setFullScreen(true);
+            this.stage.show();
             Main.stg.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,10 +90,9 @@ public class Controller implements IMusicinatorController{
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/StartPage.fxml"));
             Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setFullScreen(true);
-            stage.show();
+            this.stage.setScene(new Scene(root));
+            this.stage.setFullScreen(true);
+            this.stage.show();
             Main.stg.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -123,9 +100,12 @@ public class Controller implements IMusicinatorController{
     }
     @FXML
     public void pressGetHintButton(){
+      //  static int numHint=0;
         //todo: use the controller function to get hint from the db
+        //for (int i=0; i<numHint)
+        //decrease the score of the user
         String hint = "hint";//get the hint from controller
-        this.hintLabel.setText(hint);
+       // this.hintsScrollPane
     }
 
     @FXML
@@ -146,10 +126,9 @@ public class Controller implements IMusicinatorController{
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/MainMenu.fxml"));
             Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setFullScreen(true);
-            stage.show();
+            this.stage.setScene(new Scene(root));
+            this.stage.setFullScreen(true);
+            this.stage.show();
             Main.stg.close();
         } catch(Exception e) {
             e.printStackTrace();
@@ -161,57 +140,76 @@ public class Controller implements IMusicinatorController{
         System.exit(0);
     }
 
-    private boolean isValidIdNumber(String idNumber){
-        return idNumber.matches("\\d{9}");
-    }
-    private boolean isUserExistInDB(String idNumber){
-        //Todo : check if user exist in DB and return the answer
+    private boolean isUserExistInDB(String userName, String userPassword){
+        //Todo : use the controller function to check if the user exist in the DB
         return true;//I wrote this only in order to avoid compilation errors
     }
 
     @FXML
-    public void pressButtonLogin()
-    {
-        String idNumber = idNumberTextBox.getText();
+    public void pressButtonLogin() {
+        //check if the text boxes are empty
+        if(this.userNameTextBox.getText() == null || this.userNameTextBox.getText().trim().isEmpty()){
+            Alert emptyUserNameAlert = new Alert(Alert.AlertType.WARNING);
+            emptyUserNameAlert.setTitle("Enter user name");
+            emptyUserNameAlert.setContentText("Please enter user name");
+            emptyUserNameAlert.showAndWait();
+        }
 
-        if(!isValidIdNumber(idNumber)){
+        if(this.passwordTextBox.getText() == null || this.passwordTextBox.getText().trim().isEmpty()){
+            Alert emptyUserNameAlert = new Alert(Alert.AlertType.WARNING);
+            emptyUserNameAlert.setTitle("Enter user password");
+            emptyUserNameAlert.setContentText("Please enter your password");
+            emptyUserNameAlert.showAndWait();
+        }
+
+        String userName = this.userNameTextBox.getText();
+        String userPassword = this.passwordTextBox.getText();
+
+        if(!userName.matches("[a-zA-Z0-9]*"))
+        {
             Alert wrongIdAlert = new Alert(Alert.AlertType.WARNING);
-            wrongIdAlert.setTitle("Wrong ID number");
-            wrongIdAlert.setHeaderText("Your Id number is not exist");
-            wrongIdAlert.setContentText("Please register before trying to login or try again");
+            wrongIdAlert.setTitle("Wrong user name");
+            wrongIdAlert.setHeaderText("Your user name is incorrect");
+            wrongIdAlert.setContentText("user name should made only of letters and numbers");
             wrongIdAlert.showAndWait();
         }
 
-        if (isUserExistInDB(idNumber)) {
-            //Todo: save the user in DB and restart game
-            try {
+        if(!userPassword.matches("[a-zA-Z0-9]*")) {
+            Alert wrongIdAlert = new Alert(Alert.AlertType.WARNING);
+            wrongIdAlert.setTitle("Wrong user password");
+            wrongIdAlert.setHeaderText("Your password is incorrect");
+            wrongIdAlert.setContentText("user password should made only of letters and numbers");
+            wrongIdAlert.showAndWait();
+        }
 
-                System.out.print("limor and coral");
+        if (isUserExistInDB(userName, userPassword)) {
+            try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/ChooseGameDifficulty.fxml"));
                 Parent root = (Parent) fxmlLoader.load();
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.setFullScreen(true);
-                stage.show();
+                this.stage.setScene(new Scene(root));
+                this.stage.setFullScreen(true);
+                this.stage.show();
                 Main.stg.close();
             }
             catch(Exception e) {
                 e.printStackTrace();
             }
+        } else {
+            Alert userNotExistAlert = new Alert(Alert.AlertType.WARNING);
+            userNotExistAlert.setTitle("Register before login");
+            userNotExistAlert.setContentText("Please register before you try to login");
+            userNotExistAlert.showAndWait();
         }
     }
 
-    //todo Coral: why do you get playAgainEvent parameter? do we need it? you just need
-    public void pressButtonPlayAgain(ActionEvent playAgainEvent){
+    public void pressButtonPlayAgain(){
         //todo : use the "resetGame" function in the controller
-
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/ChooseGameDifficulty.fxml"));
             Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setFullScreen(true);
-            stage.show();
+            this.stage.setScene(new Scene(root));
+            this.stage.setFullScreen(true);
+            this.stage.show();
             Main.stg.close();
         } catch(Exception e) {
             e.printStackTrace();
@@ -223,10 +221,9 @@ public class Controller implements IMusicinatorController{
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Register.fxml"));
             Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setFullScreen(true);
-            stage.show();
+            this.stage.setScene(new Scene(root));
+            this.stage.setFullScreen(true);
+            this.stage.show();
             Main.stg.close();
         } catch(Exception e) {
             e.printStackTrace();
@@ -238,10 +235,9 @@ public class Controller implements IMusicinatorController{
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Login.fxml"));
             Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setFullScreen(true);
-            stage.show();
+            this.stage.setScene(new Scene(root));
+            this.stage.setFullScreen(true);
+            this.stage.show();
             Main.stg.close();
         } catch(Exception e) {
             e.printStackTrace();
@@ -253,10 +249,9 @@ public class Controller implements IMusicinatorController{
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/HighScoreTable.fxml"));
             Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setFullScreen(true);
-            stage.show();
+            this.stage.setScene(new Scene(root));
+            this.stage.setFullScreen(true);
+            this.stage.show();
             Main.stg.close();
         } catch(Exception e) {
             e.printStackTrace();
@@ -264,47 +259,68 @@ public class Controller implements IMusicinatorController{
     }
     @FXML
     public void pressButtonSubmit(){
-        String userFirstName = firstNameTextBox.getText();
-        String userLastName = lastNameTextBox.getText();
-        String idNumber = idNumberTextBox.getText();
+        //check if the text boxes are empty
+        if(this.userNameTextBox.getText() == null || this.userNameTextBox.getText().trim().isEmpty()){
+            Alert emptyUserNameAlert = new Alert(Alert.AlertType.WARNING);
+            emptyUserNameAlert.setTitle("Enter user name");
+            emptyUserNameAlert.setContentText("Please enter user name");
+            emptyUserNameAlert.showAndWait();
+        }
 
-        if(isValidFirstName(userFirstName) &&
-                isValidLastName(userLastName) ){
+        if(this.passwordTextBox.getText() == null || this.passwordTextBox.getText().trim().isEmpty()){
+            Alert emptyUserNameAlert = new Alert(Alert.AlertType.WARNING);
+            emptyUserNameAlert.setTitle("Enter user password");
+            emptyUserNameAlert.setContentText("Please enter your password");
+            emptyUserNameAlert.showAndWait();
+        }
+
+        String userName = this.userNameTextBox.getText();
+        String userPassword = this.passwordTextBox.getText();
+
+        if(isValidUserDetails(userName, userPassword)){
             //todo :use the controller function to add the user to the DB
-            //go to login page
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Login.fxml"));
                 Parent root = (Parent) fxmlLoader.load();
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.setFullScreen(true);
-                stage.show();
+                this.stage.setScene(new Scene(root));
+                this.stage.setFullScreen(true);
+                this.stage.show();
                 Main.stg.close();
             } catch(Exception e) {
                 e.printStackTrace();
             }
-
-
-
         }
     }
 
-    private boolean isValidFirstName(String firstName) {
-        return firstName.matches( "[A-Z][a-zA-Z]*" );
-    }
+    private boolean isValidUserDetails(String userName, String userPassword){
+        if(!userName.matches("[a-zA-Z0-9]*")) {
+            Alert wrongIdAlert = new Alert(Alert.AlertType.WARNING);
+            wrongIdAlert.setTitle("Wrong user name");
+            wrongIdAlert.setHeaderText("Your user name is incorrect");
+            wrongIdAlert.setContentText("user name should made only of letters and numbers");
+            wrongIdAlert.showAndWait();
+            return false;
+        }
 
-    private boolean isValidLastName(String lastName) {
-        return lastName.matches( "[a-zA-z]+([ '-][a-zA-Z]+)*" );
+        if(!userPassword.matches("[a-zA-Z0-9]*")) {
+            Alert wrongIdAlert = new Alert(Alert.AlertType.WARNING);
+            wrongIdAlert.setTitle("Wrong user password");
+            wrongIdAlert.setHeaderText("Your password is incorrect");
+            wrongIdAlert.setContentText("user password should made only of letters and numbers");
+            wrongIdAlert.showAndWait();
+            return false;
+        }
+
+        return true;
     }
 
     public void pressButtonMenu(ActionEvent backMenuEvent){
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/MainMenu.fxml"));
             Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setFullScreen(true);
-            stage.show();
+            this.stage.setScene(new Scene(root));
+            this.stage.setFullScreen(true);
+            this.stage.show();
             Main.stg.close();
         } catch(Exception e) {
             e.printStackTrace();
