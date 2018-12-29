@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -19,7 +20,7 @@ public class Controller implements IMusicinatorController{
     @FXML
     private TextField answerTextBox;
     @FXML
-    private Label hintLabel;
+    private ScrollPane hintsScrollPane;
     @FXML
     private TextField passwordTextBox;
     @FXML
@@ -99,10 +100,12 @@ public class Controller implements IMusicinatorController{
     }
     @FXML
     public void pressGetHintButton(){
+      //  static int numHint=0;
         //todo: use the controller function to get hint from the db
+        //for (int i=0; i<numHint)
         //decrease the score of the user
         String hint = "hint";//get the hint from controller
-        this.hintLabel.setText(hint);
+       // this.hintsScrollPane
     }
 
     @FXML
