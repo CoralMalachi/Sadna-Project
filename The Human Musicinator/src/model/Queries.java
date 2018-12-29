@@ -64,19 +64,30 @@ public class Queries {
     public static final String artistBornAreaTypeQuery = "SELECT area_type.name FROM area_type INNER JOIN area INNER JOIN artist ON area_type.id=area.type and area.id=artist.area and artist.id = ?";
 
 
-    //select random song of the artist - by level (easy/hard)
+    //select random song of the artist - by level (easy) - after year 2000 for example TODO:need the rating table, very slow!
+    public static final String easySingleOfArtistQuery = "select `release`.id,`release`.name from `release` INNER JOIN release_country on release_country.release=`release`.id  INNER JOIN release_group ON release_group.id=`release`.release_group and release_group.type=(select id from release_group_primary_type where release_group_primary_type.name=\"Single\")\n" +
+            " where `release`.language=(select id from language where language.name=\"English\") and `release`.artist_credit=(select id from artist_credit where artist_credit.name=\"[Disney]\" limit 1) and release_country.date_year>2000 ORDER BY RAND() LIMIT 1";
 
     //select the language of song
+    public static final String languageOfReleaseQuery = "select language.name from language inner join `release` on `release`.language=language.id where `release`.id= ?";
 
     //select a random album - nested query
     public static final String albumRandomQuery = "select `release`.name from `release` INNER JOIN release_group ON release_group.id=`release`.release_group and release_group.type=(select id from release_group_primary_type where release_group_primary_type.name=\"Album\") ORDER BY RAND() LIMIT 1";
 
     //select random album of the artist - by level (easy/hard) - use Release group & release_group_primary_type (tell us if its a album/single
 
-    //select random album by artist and language TODO:add input artist name
+    //select random album by artist (and id) and language TODO:add input artist name and language
     public static final String albumRandomOfArtistQuery = "select `release`.id,`release`.name from `release` INNER JOIN release_group ON release_group.id=`release`.release_group and release_group.type=(select id from release_group_primary_type where release_group_primary_type.name=\"Album\") where `release`.language=(select id from language where language.name=\"English\") and `release`.artist_credit=(select id from artist_credit where artist_credit.name=\"[Disney]\" limit 1) ORDER BY RAND() LIMIT 1";
 
+    //select random album by artist and language TODO:add input artist name and language
+    public static final String singleRandomOfArtistQuery = "select `release`.id,`release`.name from `release` INNER JOIN release_group ON release_group.id=`release`.release_group and release_group.type=(select id from release_group_primary_type where release_group_primary_type.name=\"Single\") where `release`.language=(select id from language where language.name=\"English\") and `release`.artist_credit=(select id from artist_credit where artist_credit.name=\"[Disney]\" limit 1) ORDER BY RAND() LIMIT 1";
+
     //get artist_alias of the artist
+    public static final String artistAliasNameQuery="select * from artist_alias where artist_alias.artist= ? order by artist_alias.last_updated DESC limit 1";
+
+    //get the country of given release id
+    public static final String getReleaseCountryQuery = "select area.name from area inner join country_area on country_area.area=area.id inner join release_country on release_country.country=country_area.area inner join `release` on `release`.id=release_country.release and `release`.id= ?";
+
 
     /**
      * UNTESTED.
