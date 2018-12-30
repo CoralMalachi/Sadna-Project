@@ -2,6 +2,8 @@ package model;
 
 import util.Record;
 import util.User;
+import util.Entity;
+import util.Hint;
 import java.util.List;
 
 public interface IModel {
@@ -11,9 +13,11 @@ public interface IModel {
 
     boolean insertIntoRecordsTable(Record Record);
 
-    //List<Hint> getHintList(String difficulty);
+    List<Hint> getHintList(String difficulty);
 
-    //Entity getEntity(String difficulty);
+    Entity getEntity(String difficulty);
 
     List<Record> getRecords(String difficulty);
+
+    void startGame(User user, Entity entity, String difficulty);
 }

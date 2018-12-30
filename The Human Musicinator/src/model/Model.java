@@ -5,16 +5,20 @@ import java.sql.*;
 import util.User;
 import util.Record;
 import util.Entity;
+import util.Hint;
 
 import java.util.List;
+
 import java.util.ArrayList;
 
-public class Model {
+public class Model implements IModel {
     private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String DB_URL = "jdbc:mysql://localhost/test?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false";
 
     private static final String USER = "root";
     private static final String PASS = "root";
+
+    private GameState state;
 
     /**
      * Constructor.
@@ -134,7 +138,7 @@ public class Model {
         }
     }
 
-    Entity getEntity(String difficulty) {
+    public Entity getEntity(String difficulty) {
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              PreparedStatement stmt = conn.prepareStatement(Queries.idQuery)) {
             ResultSet rs = stmt.executeQuery();
@@ -152,5 +156,13 @@ public class Model {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public List<Hint> getHintList(String difficulty) {
+        return new ArrayList<Hint>();
+    }
+
+    public void startGame(User user, Entity entity, String difficulty) {
+        this.state = new GameState(entity, user, difficulty);
     }
 }
