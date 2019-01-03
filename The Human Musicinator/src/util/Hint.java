@@ -5,6 +5,5 @@ package util;
  */
 public class Hint {
     public String info;
-    public DifficultyConstants difficulty;
     public HintType hintType;
 }

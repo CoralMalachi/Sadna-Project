@@ -18,6 +18,9 @@ public class Model implements IModel {
     private static final String USER = "root";
     private static final String PASS = "root";
 
+    private static final String USER_TABLE = "Userlist";
+    private static final String RECORDS_TABLE = "HighScore";
+
     private GameState state;
 
     /**
@@ -26,6 +29,7 @@ public class Model implements IModel {
     public Model() {
         try {
             Class.forName(JDBC_DRIVER);
+            this.state = new GameState();
         } catch(ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -38,8 +42,8 @@ public class Model implements IModel {
      */
     public boolean registerUser(User user) {
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement checkStmt = conn.prepareStatement(Queries.checkIfRegisteredQuery);
-             PreparedStatement registerStmt = conn.prepareStatement("INSERT INTO Userlist VALUES ('0', ?, ?)")) {
+             PreparedStatement checkStmt = conn.prepareStatement("SELECT * FROM " + USER_TABLE + " WHERE UserName = ?");
+             PreparedStatement registerStmt = conn.prepareStatement("INSERT INTO " + USER_TABLE + " VALUES ('0', ?, ?)")) {
             // Checks if this username is already taken, returns false if it is.
             checkStmt.setString(1, user.username);
             ResultSet rs = checkStmt.executeQuery();
@@ -67,7 +71,7 @@ public class Model implements IModel {
      */
     public boolean loginUser(User user) {
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement stmt = conn.prepareStatement(Queries.loginUserQuery)) {
+             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + USER_TABLE + " WHERE UserName = ? AND UserPassword = ?")) {
             stmt.setString(1, user.username);
             stmt.setString(2, user.password);
             ResultSet rs = stmt.executeQuery();
@@ -91,9 +95,8 @@ public class Model implements IModel {
      * @return True if succeeded, false otherwise.
      */
     public boolean insertIntoRecordsTable(Record record) {
-        String table = record.difficulty + "records";
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + table + " VALUES ('0', ?, ?)")) {
+             PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + RECORDS_TABLE + " VALUES ('0', ?, ?)")) {
             stmt.setString(1, record.username);
             stmt.setString(2, String.valueOf(record.score));
             stmt.executeUpdate();
@@ -112,11 +115,10 @@ public class Model implements IModel {
      * @param difficulty The difficulty level of the requested highscore table.
      * @return The List of the scores, null if there's an error.
      */
-    public List<Record> getRecords(String difficulty) {
-        String table = difficulty + "records";
+    public List<Record> getHighScoreTable() {
         List<Record> scores = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + table + " ORDER BY Score DESC")) {
+             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + RECORDS_TABLE + " ORDER BY Score DESC")) {
             ResultSet rs = stmt.executeQuery();
             // Creating a list of records from the ResultSet.
             while (rs.next()) {
@@ -125,7 +127,6 @@ public class Model implements IModel {
                 Record r = new Record();
                 r.username = username;
                 r.score = score;
-                r.difficulty = difficulty;
                 scores.add(r);
             }
             return scores;
@@ -138,9 +139,9 @@ public class Model implements IModel {
         }
     }
 
-    public Entity getEntity(String difficulty) {
+    public Entity getEntity() {
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement stmt = conn.prepareStatement(Queries.idQuery)) {
+             PreparedStatement stmt = conn.prepareStatement("SELECT id, name FROM artist ORDER BY RAND() LIMIT 1")) {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 Entity entity = new Entity();
@@ -158,11 +159,30 @@ public class Model implements IModel {
         }
     }
 
-    public List<Hint> getHintList(String difficulty) {
+    // TODO: Implement this function.
+    private List<Hint> getHintList() {
         return new ArrayList<Hint>();
     }
 
-    public void startGame(User user, Entity entity, String difficulty) {
-        this.state = new GameState(entity, user, difficulty);
+    public void startGame(User user/*, Entity entity*/) {
+        this.state.setUser(user);
+        this.state.setEntity(getEntity());
+        this.state.setHintList(getHintList());
+    }    
+
+    public boolean validateUserGuess(String userGuess) {
+        return state.validateUserGuess(userGuess);
+    }
+
+    public boolean checkUserGuess(String userGuess) {
+        return state.checkUserGuess(userGuess);
+    }
+
+    public Hint getHint() {
+        return state.getHint();
+    }
+
+    public boolean isReady() {
+        return state.isReady();
     }
 }

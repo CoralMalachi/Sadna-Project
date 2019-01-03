@@ -13,11 +13,18 @@ public interface IModel {
 
     boolean insertIntoRecordsTable(Record Record);
 
-    List<Hint> getHintList(String difficulty);
+    Entity getEntity();
 
-    Entity getEntity(String difficulty);
+    List<Record> getHighScoreTable();
 
-    List<Record> getRecords(String difficulty);
+    void startGame(User user/*, Entity entity*/);
 
-    void startGame(User user, Entity entity, String difficulty);
+    boolean validateUserGuess(String userGuess);
+
+    boolean checkUserGuess(String userGuess);
+
+    Hint getHint();
+
+    boolean isReady();
+
 }
