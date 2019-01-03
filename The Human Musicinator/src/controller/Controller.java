@@ -6,10 +6,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import util.Record;
+import util.User;
 
 import java.io.IOException;
 
@@ -25,6 +26,8 @@ public class Controller implements IMusicinatorController{
     private TextField passwordTextBox;
     @FXML
     private TextField userNameTextBox;
+    @FXML
+    private TextField scoreTextBox;
 
     public boolean checkPattern(String userGuess){
         return true;
@@ -55,62 +58,28 @@ public class Controller implements IMusicinatorController{
     }
 
     @FXML
-    public void pressHardButton() throws IOException {
-        //todo: update the controller (of the whole application) about the game difficulty
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/StartPage.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            this.stage.setScene(new Scene(root));
-            this.stage.setFullScreen(true);
-            this.stage.show();
-            Main.stg.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    public void pressMediumButton() throws IOException {
-        //todo: update the controller (of the whole application) about the game difficulty
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/StartPage.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            this.stage.setScene(new Scene(root));
-            this.stage.setFullScreen(true);
-            this.stage.show();
-            Main.stg.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    public void pressEasyButton() throws IOException {
-        //todo: update the controller (of the whole application) about the game difficulty
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/StartPage.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            this.stage.setScene(new Scene(root));
-            this.stage.setFullScreen(true);
-            this.stage.show();
-            Main.stg.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    @FXML
     public void pressGetHintButton(){
-      //  static int numHint=0;
         //todo: use the controller function to get hint from the db
-        //for (int i=0; i<numHint)
-        //decrease the score of the user
-        String hint = "hint";//get the hint from controller
+        String hint = getHint();//get the hint from controller
+        //todo: decrease the score of the user
+        updateCurrentScore();
        // this.hintsScrollPane
     }
 
     @FXML
     public void pressCheckPatternButton(){
         //todo: use the controller function to check the pattern
+        if (checkPattern(this.answerTextBox.getText())){
+
+        } else{
+            //todo : decrease the user score
+            updateCurrentScore();
+            //show message to user that it's guess is incorrect
+            Alert wrongAnswerAlert = new Alert(Alert.AlertType.WARNING);
+            wrongAnswerAlert.setTitle("Wrong answer");
+            wrongAnswerAlert.setContentText("Try to guess again");
+            wrongAnswerAlert.showAndWait();
+        }
     }
 
     @FXML
@@ -184,10 +153,12 @@ public class Controller implements IMusicinatorController{
 
         if (isUserExistInDB(userName, userPassword)) {
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/ChooseGameDifficulty.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/GamePage.fxml"));
                 Parent root = (Parent) fxmlLoader.load();
                 this.stage.setScene(new Scene(root));
                 this.stage.setFullScreen(true);
+                //update the initial score of the user
+                updateCurrentScore();
                 this.stage.show();
                 Main.stg.close();
             }
@@ -203,9 +174,11 @@ public class Controller implements IMusicinatorController{
     }
 
     public void pressButtonPlayAgain(){
+        Record newRecord = addUserToHighScoreTable();
+        //todo: use the controller function to add 'newRecord' to the high score table
         //todo : use the "resetGame" function in the controller
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/ChooseGameDifficulty.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/GamePage.fxml"));
             Parent root = (Parent) fxmlLoader.load();
             this.stage.setScene(new Scene(root));
             this.stage.setFullScreen(true);
@@ -315,6 +288,8 @@ public class Controller implements IMusicinatorController{
     }
 
     public void pressButtonMenu(ActionEvent backMenuEvent){
+        Record newRecord = addUserToHighScoreTable();
+        //todo: use the controller function to add 'newRecord' to the high score table
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/MainMenu.fxml"));
             Parent root = (Parent) fxmlLoader.load();
@@ -325,5 +300,19 @@ public class Controller implements IMusicinatorController{
         } catch(Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void updateCurrentScore(){
+        //todo: use the controller function that calculates the current score of the player
+        int currentScore = getCurrentScore();
+        this.scoreTextBox.setText(currentScore);
+    }
+
+    private Record addUserToHighScoreTable(){
+        //todo: use the controller function to get the user name
+        String userName = getUserName();
+        //todo: use the controller fnction to get the current score of the user
+        int score = getCurrentScore();
+        return new Record(userName,score);
     }
 }
