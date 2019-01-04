@@ -1,8 +1,6 @@
 package controller;
 
 import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,14 +12,14 @@ import javafx.stage.Stage;
 import util.Record;
 import java.io.IOException;
 
-public class Controller implements IMusicinatorController{
-
+public class ViewController{
+    //members
     @FXML
     private Stage stage = new Stage();
     @FXML
     private TextField answerTextBox;
     @FXML
-    private ScrollPane hintsScrollPane;
+    private AnchorPane hintsScrollPane;
     @FXML
     private TextField passwordTextBox;
     @FXML
@@ -29,40 +27,11 @@ public class Controller implements IMusicinatorController{
     @FXML
     private TextField scoreTextBox;
     @FXML
-    private AnchorPane scrollPane;
-    @FXML
     private TableView<Record> highScoreTable = new TableView<Record>();
-
     private VBox vBox= new VBox();
 
-    public boolean checkPattern(String userGuess){
-        return true;
-    }
 
-    public boolean maskEntity(){
-        return true;
-    }
-
-//    public boolean checkRegistration(UserInfo userInfo){
-//        return true;
-//    }
-//
-//    public boolean checkLogin(UserInfo userInfo){
-//        return true;
-//    }
-//
-//    public boolean initGame(GameState gameState){
-//        return true;
-//    }
-
-    public boolean resetGame(){
-        return true;
-    }
-
-    public boolean hasGameEnded(){
-        return true;
-    }
-
+    //functions
     @FXML
     public void pressGetHintButton(){
         //todo: use the controller function to get hint from the db
@@ -173,12 +142,13 @@ public class Controller implements IMusicinatorController{
             }
         } else {
             Alert userNotExistAlert = new Alert(Alert.AlertType.WARNING);
-            userNotExistAlert.setTitle("Register before login");
-            userNotExistAlert.setContentText("Please register before you try to login");
+            userNotExistAlert.setTitle("Please register before trying to login");
+            userNotExistAlert.setContentText("If you are already registered, check the details you entered");
             userNotExistAlert.showAndWait();
         }
     }
 
+    @FXML
     public void pressButtonPlayAgain(){
         //todo: use the controller function to add 'newRecord' to the high score table
         addRecordToHighScoreTable();
@@ -236,6 +206,7 @@ public class Controller implements IMusicinatorController{
             e.printStackTrace();
         }
     }
+
     @FXML
     public void pressButtonSubmit(){
         //check if the text boxes are empty
@@ -300,6 +271,7 @@ public class Controller implements IMusicinatorController{
         return true;
     }
 
+    @FXML
     public void pressButtonMenu(ActionEvent backMenuEvent){
         //todo: use the controller function to add 'newRecord' to the high score table
         addRecordToHighScoreTable();
@@ -331,12 +303,11 @@ public class Controller implements IMusicinatorController{
     }
 
     private void initializeScrollPane(){//todo: maybe not needed?
-        this.scrollPane.setTopAnchor( this.vBox, 10.0); // obviously provide your own constraints
-        this.scrollPane.getChildren().add(this.vBox);
+        this.hintsScrollPane.setTopAnchor( this.vBox, 10.0); // obviously provide your own constraints
+        this.hintsScrollPane.getChildren().add(this.vBox);
     }
 
     //todo: write addHintToScrollBarFunction
-
 
     private void addRecordToHighScoreTable(){
         this.highScoreTable.getItems().add(getRecordOfCurrentUser());
