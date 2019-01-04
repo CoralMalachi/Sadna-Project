@@ -1,6 +1,5 @@
 package controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -40,8 +39,20 @@ public class ViewController{
         //todo: use the controller function to get hint from the db
         String hint = getHint();//get the hint from controller
         //todo: use the controller function to decrease the score of the user
-        //update the score of the user
+        //decrease the score of the user
         updateCurrentScore();
+        if (getCurrentScore() == 0){
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Lose.fxml"));
+                Parent root = (Parent) fxmlLoader.load();
+                this.stage.setScene(new Scene(root));
+                this.stage.setFullScreen(true);
+                this.stage.show();
+                Main.stg.close();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
         //add the hint to the scroll pane
         this.hintsScrollPane.addEventHandler(null, );
     }
@@ -68,6 +79,17 @@ public class ViewController{
         } else{
             //todo : decrease the user score
             updateCurrentScore();
+            if (getCurrentScore() == 0){
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Lose.fxml"));
+                    Parent root = (Parent) fxmlLoader.load();
+                    this.stage.setScene(new Scene(root));
+                    this.stage.setFullScreen(true);
+                    this.stage.show();
+                    Main.stg.close();
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
             //show message to user that it's guess is incorrect
             Alert wrongAnswerAlert = new Alert(Alert.AlertType.WARNING);
             wrongAnswerAlert.setTitle("Wrong answer");
@@ -388,7 +410,7 @@ public class ViewController{
     //todo: write addHintToScrollBarFunction
 
     /**
-     * The function adds a record (with the current user details) to the high score table
+     * The function adds a record(with the current user details) to the high score table
      */
     private void addRecordToHighScoreTable(){
         this.highScoreTable.getItems().add(getRecordOfCurrentUser());
