@@ -1,17 +1,17 @@
 package controller;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import util.Record;
-import util.User;
-
 import java.io.IOException;
 
 public class Controller implements IMusicinatorController{
@@ -28,6 +28,12 @@ public class Controller implements IMusicinatorController{
     private TextField userNameTextBox;
     @FXML
     private TextField scoreTextBox;
+    @FXML
+    private AnchorPane scrollPane;
+    @FXML
+    private TableView<Record> highScoreTable = new TableView<Record>();
+
+    private VBox vBox= new VBox();
 
     public boolean checkPattern(String userGuess){
         return true;
@@ -63,7 +69,7 @@ public class Controller implements IMusicinatorController{
         String hint = getHint();//get the hint from controller
         //todo: decrease the score of the user
         updateCurrentScore();
-       // this.hintsScrollPane
+        this.hintsScrollPane.addEventHandler(null, );
     }
 
     @FXML
@@ -174,8 +180,8 @@ public class Controller implements IMusicinatorController{
     }
 
     public void pressButtonPlayAgain(){
-        Record newRecord = addUserToHighScoreTable();
         //todo: use the controller function to add 'newRecord' to the high score table
+        addRecordToHighScoreTable();
         //todo : use the "resetGame" function in the controller
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/GamePage.fxml"));
@@ -252,15 +258,22 @@ public class Controller implements IMusicinatorController{
 
         if(isValidUserDetails(userName, userPassword)){
             //todo :use the controller function to add the user to the DB
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Login.fxml"));
-                Parent root = (Parent) fxmlLoader.load();
-                this.stage.setScene(new Scene(root));
-                this.stage.setFullScreen(true);
-                this.stage.show();
-                Main.stg.close();
-            } catch(Exception e) {
-                e.printStackTrace();
+            if (register(userName, userPassword)){
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Login.fxml"));
+                    Parent root = (Parent) fxmlLoader.load();
+                    this.stage.setScene(new Scene(root));
+                    this.stage.setFullScreen(true);
+                    this.stage.show();
+                    Main.stg.close();
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Alert emptyUserNameAlert = new Alert(Alert.AlertType.WARNING);
+                emptyUserNameAlert.setTitle("The user name is already in use");
+                emptyUserNameAlert.setContentText("Please choose different user name");
+                emptyUserNameAlert.showAndWait();
             }
         }
     }
@@ -288,8 +301,8 @@ public class Controller implements IMusicinatorController{
     }
 
     public void pressButtonMenu(ActionEvent backMenuEvent){
-        Record newRecord = addUserToHighScoreTable();
         //todo: use the controller function to add 'newRecord' to the high score table
+        addRecordToHighScoreTable();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/MainMenu.fxml"));
             Parent root = (Parent) fxmlLoader.load();
@@ -308,11 +321,25 @@ public class Controller implements IMusicinatorController{
         this.scoreTextBox.setText(currentScore);
     }
 
-    private Record addUserToHighScoreTable(){
+    private Record getRecordOfCurrentUser(){
+        Record newUser=new Record();
         //todo: use the controller function to get the user name
-        String userName = getUserName();
-        //todo: use the controller fnction to get the current score of the user
-        int score = getCurrentScore();
-        return new Record(userName,score);
+        newUser.username = getUserName();
+        //todo: use the controller function to get the current score of the user
+        newUser.score = getCurrentScore();
+        return newUser;
     }
+
+    private void initializeScrollPane(){//todo: maybe not needed?
+        this.scrollPane.setTopAnchor( this.vBox, 10.0); // obviously provide your own constraints
+        this.scrollPane.getChildren().add(this.vBox);
+    }
+
+    //todo: write addHintToScrollBarFunction
+
+
+    private void addRecordToHighScoreTable(){
+        this.highScoreTable.getItems().add(getRecordOfCurrentUser());
+    }
+
 }
