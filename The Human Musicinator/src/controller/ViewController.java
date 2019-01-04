@@ -33,19 +33,38 @@ public class ViewController{
 
     //functions
     @FXML
+    /**
+     * The function gives a hint to the user
+     */
     public void pressGetHintButton(){
         //todo: use the controller function to get hint from the db
         String hint = getHint();//get the hint from controller
-        //todo: decrease the score of the user
+        //todo: use the controller function to decrease the score of the user
+        //update the score of the user
         updateCurrentScore();
+        //add the hint to the scroll pane
         this.hintsScrollPane.addEventHandler(null, );
     }
 
     @FXML
+    /**
+     * The function checks the user's pattern:
+     *If he was right, he won.
+     *If he was wrong, he can keep trying to guess.
+     */
     public void pressCheckPatternButton(){
         //todo: use the controller function to check the pattern
         if (checkPattern(this.answerTextBox.getText())){
-
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Win.fxml"));
+                Parent root = (Parent) fxmlLoader.load();
+                this.stage.setScene(new Scene(root));
+                this.stage.setFullScreen(true);
+                this.stage.show();
+                Main.stg.close();
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
         } else{
             //todo : decrease the user score
             updateCurrentScore();
@@ -54,19 +73,38 @@ public class ViewController{
             wrongAnswerAlert.setTitle("Wrong answer");
             wrongAnswerAlert.setContentText("Try to guess again");
             wrongAnswerAlert.showAndWait();
+            if(getCurrentScore() == 0){
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Lose.fxml"));
+                    Parent root = (Parent) fxmlLoader.load();
+                    this.stage.setScene(new Scene(root));
+                    this.stage.setFullScreen(true);
+                    this.stage.show();
+                    Main.stg.close();
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
     @FXML
+    /**
+     * The function gives the user the artist's name
+     */
     public void pressCheatButton(){
         //todo: use the controller function to get the name of the artist
-        String artistName = "the answer";
+        String artistName = getAnswer();
         this.answerTextBox.setText(artistName);
     }
 
     @FXML
+    /**
+     * The function changes the current screen to the main menu
+     */
     public void pressGoToMenuButton(){
         //todo: use the controller function that reset the game
+        resetGame();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/MainMenu.fxml"));
             Parent root = (Parent) fxmlLoader.load();
@@ -80,16 +118,25 @@ public class ViewController{
     }
 
     @FXML
+    /**
+     * The function exits from the game
+     */
     public void pressExitButton(){
         System.exit(0);
     }
 
+    /**
+     * The function returns true is the user exist in the DB or false otherwise
+     */
     private boolean isUserExistInDB(String userName, String userPassword){
         //Todo : use the controller function to check if the user exist in the DB
-        return true;//I wrote this only in order to avoid compilation errors
+        return isUserExist(userName, userPassword);
     }
 
     @FXML
+    /**
+     * The function is responsible for the user login
+     */
     public void pressButtonLogin() {
         //check if the text boxes are empty
         if(this.userNameTextBox.getText() == null || this.userNameTextBox.getText().trim().isEmpty()){
@@ -149,10 +196,14 @@ public class ViewController{
     }
 
     @FXML
+    /**
+     * The function initializes a new game
+     */
     public void pressButtonPlayAgain(){
         //todo: use the controller function to add 'newRecord' to the high score table
         addRecordToHighScoreTable();
         //todo : use the "resetGame" function in the controller
+        resetGame();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/GamePage.fxml"));
             Parent root = (Parent) fxmlLoader.load();
@@ -166,6 +217,9 @@ public class ViewController{
     }
 
     @FXML
+    /**
+     * The function changes the current screen to the registration page
+     */
     public void pressRegisterButton() throws IOException {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Register.fxml"));
@@ -180,6 +234,9 @@ public class ViewController{
     }
 
     @FXML
+    /**
+     * The function changes the current screen to the login page
+     */
     public void pressLoginButton() throws IOException{
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Login.fxml"));
@@ -194,6 +251,9 @@ public class ViewController{
     }
 
     @FXML
+    /**
+     * The function changes the current screen to the high score table page
+     */
     public void pressShowHighScoreTableButton() throws IOException{
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/HighScoreTable.fxml"));
@@ -208,6 +268,9 @@ public class ViewController{
     }
 
     @FXML
+    /**
+     * The function is responsible for the user registration
+     */
     public void pressButtonSubmit(){
         //check if the text boxes are empty
         if(this.userNameTextBox.getText() == null || this.userNameTextBox.getText().trim().isEmpty()){
@@ -249,6 +312,9 @@ public class ViewController{
         }
     }
 
+    /**
+     * The function returns true if the user details are valid or false otherwise
+     */
     private boolean isValidUserDetails(String userName, String userPassword){
         if(!userName.matches("[a-zA-Z0-9]*")) {
             Alert wrongIdAlert = new Alert(Alert.AlertType.WARNING);
@@ -272,7 +338,11 @@ public class ViewController{
     }
 
     @FXML
-    public void pressButtonMenu(ActionEvent backMenuEvent){
+    /**
+     * The function saves the details of the current user and changes the
+     * current screen to the main menu
+     */
+    public void pressButtonMenu(){
         //todo: use the controller function to add 'newRecord' to the high score table
         addRecordToHighScoreTable();
         try {
@@ -287,14 +357,19 @@ public class ViewController{
         }
     }
 
+    /**
+     * The function updates the user score
+     */
     private void updateCurrentScore(){
         //todo: use the controller function that calculates the current score of the player
-        int currentScore = getCurrentScore();
-        this.scoreTextBox.setText(currentScore);
+        this.scoreTextBox.setText(getCurrentScore());
     }
 
+    /**
+     * The function returns a Record object with the current user details
+     */
     private Record getRecordOfCurrentUser(){
-        Record newUser=new Record();
+        Record newUser = new Record();
         //todo: use the controller function to get the user name
         newUser.username = getUserName();
         //todo: use the controller function to get the current score of the user
@@ -302,6 +377,9 @@ public class ViewController{
         return newUser;
     }
 
+    /**
+     * The function initialize the scroll pane in the game page
+     */
     private void initializeScrollPane(){//todo: maybe not needed?
         this.hintsScrollPane.setTopAnchor( this.vBox, 10.0); // obviously provide your own constraints
         this.hintsScrollPane.getChildren().add(this.vBox);
@@ -309,8 +387,10 @@ public class ViewController{
 
     //todo: write addHintToScrollBarFunction
 
+    /**
+     * The function adds a record (with the current user details) to the high score table
+     */
     private void addRecordToHighScoreTable(){
         this.highScoreTable.getItems().add(getRecordOfCurrentUser());
     }
-
 }
