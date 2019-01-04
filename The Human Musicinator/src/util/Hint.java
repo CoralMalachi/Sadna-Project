@@ -5,5 +5,5 @@ package util;
  */
 public class Hint {
     public String info;
-    public HintType hintType;
+    public String hintType;
 }

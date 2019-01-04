@@ -56,6 +56,9 @@ public class GameState {
     public boolean getHasWon() {
         return this.hasWon;
     }
+    public int getMaxNumOfHints() {
+        return this.maxNumOfHints;
+    }
 
     private void updateHintsGivenCount() {
         if (this.numOfHintsGiven <= this.maxNumOfHints){

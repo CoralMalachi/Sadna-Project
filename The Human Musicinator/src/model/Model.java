@@ -8,7 +8,7 @@ import util.Entity;
 import util.Hint;
 
 import java.util.List;
-
+import java.util.Random;
 import java.util.ArrayList;
 
 public class Model implements IModel {
@@ -159,9 +159,41 @@ public class Model implements IModel {
         }
     }
 
-    // TODO: Implement this function.
+    private Hint executeQuery(String query) {
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                Hint hint = new Hint();
+                hint.info = rs.getString(1);
+                return hint;
+            }
+            return null;
+        } catch (SQLException se) {
+            se.printStackTrace();
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     private List<Hint> getHintList() {
-        return new ArrayList<Hint>();
+        List<Hint> hintList = new ArrayList<>();
+        Random random = new Random();
+        int numOfHints = state.getMaxNumOfHints();
+        List<String> keys = new ArrayList<>(Queries.QUERY_MAP.keySet());
+        for (int i = 0; i < numOfHints; i++) {
+            String randomKey = keys.get(random.nextInt(keys.size()));
+            keys.remove(randomKey);
+            String randomQuery = Queries.QUERY_MAP.get(randomKey);
+            Hint hint = executeQuery(randomQuery);
+            if (hint != null) {
+                hint.hintType = randomKey;
+                hintList.add(hint);
+            }
+        }        
+        return hintList;
     }
 
     public void startGame(User user/*, Entity entity*/) {
