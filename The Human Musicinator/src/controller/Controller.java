@@ -46,19 +46,10 @@ public class Controller{
         Hint hint = model.getHint();
         updateCurrentScore();
         if (model.getScore() == 0){
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Lose.fxml"));
-                Parent root = (Parent) fxmlLoader.load();
-                this.stage.setScene(new Scene(root));
-                this.stage.setFullScreen(true);
-                this.stage.show();
-                Main.stg.close();
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
+            changeScreen("../view/Lose.fxml");
         }
-        //add the hint to the scroll pane
-        this.hintsScrollPane.addEventHandler(null, );
+        //todo: correct - add the hint to the scroll pane
+        //this.hintsScrollPane.addEventHandler(null, );
     }
 
     @FXML
@@ -70,47 +61,20 @@ public class Controller{
     public void pressCheckPatternButton() {
         if(model.validateUserGuess(this.answerTextBox.getText())){
             if (model.checkUserGuess(this.answerTextBox.getText())) {
-                try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Win.fxml"));
-                    Parent root = (Parent) fxmlLoader.load();
-                    this.stage.setScene(new Scene(root));
-                    this.stage.setFullScreen(true);
-                    this.stage.show();
-                    Main.stg.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                changeScreen("../view/Win.fxml");
             } else {
                 //todo : decrease the user score
                 //todo Limor : show another hint
                 updateCurrentScore();
                 if (model.getScore() == 0) {
-                    try {
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Lose.fxml"));
-                        Parent root = (Parent) fxmlLoader.load();
-                        this.stage.setScene(new Scene(root));
-                        this.stage.setFullScreen(true);
-                        this.stage.show();
-                        Main.stg.close();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    changeScreen("../view/Lose.fxml");
                     //show message to user that it's guess is incorrect
                     Alert wrongAnswerAlert = new Alert(Alert.AlertType.WARNING);
                     wrongAnswerAlert.setTitle("Wrong answer");
                     wrongAnswerAlert.setContentText("Try to guess again");
                     wrongAnswerAlert.showAndWait();
                     if (model.getScore() == 0) {
-                        try {
-                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Lose.fxml"));
-                            Parent root = (Parent) fxmlLoader.load();
-                            this.stage.setScene(new Scene(root));
-                            this.stage.setFullScreen(true);
-                            this.stage.show();
-                            Main.stg.close();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                        changeScreen("../view/Lose.fxml");
                     }
                 }
             }
@@ -134,16 +98,7 @@ public class Controller{
     public void pressGoToMenuButton(){
         //todo: use the controller function that reset the game
         model.resetGame();
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/MainMenu.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            this.stage.setScene(new Scene(root));
-            this.stage.setFullScreen(true);
-            this.stage.show();
-            Main.stg.close();
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+        changeScreen("../view/MainMenu.fxml");
     }
 
     @FXML
@@ -205,19 +160,7 @@ public class Controller{
         }
 
         if (isUserExistInDB(userName, userPassword)) {
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/GamePage.fxml"));
-                Parent root = (Parent) fxmlLoader.load();
-                this.stage.setScene(new Scene(root));
-                this.stage.setFullScreen(true);
-                //update the initial score of the user
-                updateCurrentScore();
-                this.stage.show();
-                Main.stg.close();
-            }
-            catch(Exception e) {
-                e.printStackTrace();
-            }
+            changeScreen("../view/GamePage.fxml");
         } else {
             Alert userNotExistAlert = new Alert(Alert.AlertType.WARNING);
             userNotExistAlert.setTitle("Please register before trying to login");
@@ -231,18 +174,9 @@ public class Controller{
      * The function initializes a new game
      */
     public void pressButtonPlayAgain(){
-        addRecordToHighScoreTable();
+        model.insertIntoRecordsTable(getRecordOfCurrentUser());
         model.resetGame();
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/GamePage.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            this.stage.setScene(new Scene(root));
-            this.stage.setFullScreen(true);
-            this.stage.show();
-            Main.stg.close();
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+        changeScreen("../view/GamePage.fxml");
     }
 
     @FXML
@@ -250,16 +184,7 @@ public class Controller{
      * The function changes the current screen to the registration page
      */
     public void pressRegisterButton() throws IOException {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Register.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            this.stage.setScene(new Scene(root));
-            this.stage.setFullScreen(true);
-            this.stage.show();
-            Main.stg.close();
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+        changeScreen("../view/Register.fxml");
     }
 
     @FXML
@@ -267,16 +192,7 @@ public class Controller{
      * The function changes the current screen to the login page
      */
     public void pressLoginButton() throws IOException{
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Login.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            this.stage.setScene(new Scene(root));
-            this.stage.setFullScreen(true);
-            this.stage.show();
-            Main.stg.close();
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+        changeScreen("../view/Login.fxml");
     }
 
     @FXML
@@ -284,16 +200,7 @@ public class Controller{
      * The function changes the current screen to the high score table page
      */
     public void pressShowHighScoreTableButton() throws IOException{
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/HighScoreTable.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            this.stage.setScene(new Scene(root));
-            this.stage.setFullScreen(true);
-            this.stage.show();
-            Main.stg.close();
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+        changeScreen("../view/HighScoreTable.fxml");
     }
 
     @FXML
@@ -324,16 +231,7 @@ public class Controller{
             registerUser.username = userName;
             registerUser.password = userPassword;
             if (model.registerUser(registerUser)){
-                try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Login.fxml"));
-                    Parent root = (Parent) fxmlLoader.load();
-                    this.stage.setScene(new Scene(root));
-                    this.stage.setFullScreen(true);
-                    this.stage.show();
-                    Main.stg.close();
-                } catch(Exception e) {
-                    e.printStackTrace();
-                }
+                changeScreen("../view/Login.fxml");
             } else {
                 Alert emptyUserNameAlert = new Alert(Alert.AlertType.WARNING);
                 emptyUserNameAlert.setTitle("The user name is already in use");
@@ -374,18 +272,9 @@ public class Controller{
      * current screen to the main menu
      */
     public void pressButtonMenu(){
-        //todo: use the controller function to add 'newRecord' to the high score table
-        addRecordToHighScoreTable();
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/MainMenu.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            this.stage.setScene(new Scene(root));
-            this.stage.setFullScreen(true);
-            this.stage.show();
-            Main.stg.close();
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+        model.insertIntoRecordsTable(getRecordOfCurrentUser());
+        //todo Limor: use getHighScoreTable that Gal Wrote
+        changeScreen("../view/MainMenu.fxml");
     }
 
     /**
@@ -400,19 +289,23 @@ public class Controller{
      */
     private Record getRecordOfCurrentUser(){
         Record newUser = new Record();
-        //todo: use the controller function to get the user name
-        newUser.username = getUserName();
-        //todo: use the controller function to get the current score of the user
+        newUser.username = model.getUser().username;
         newUser.score = model.getScore();
         return newUser;
     }
 
-    //todo: write addHintToScrollBarFunction
+    //todo Limor: write addHintToScrollBarFunction
 
-    /**
-     * The function adds a record(with the current user details) to the high score table
-     */
-    private void addRecordToHighScoreTable(){
-        this.highScoreTable.getItems().add(getRecordOfCurrentUser());
+    private void changeScreen(String path){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(path));
+            Parent root = (Parent) fxmlLoader.load();
+            this.stage.setScene(new Scene(root));
+            this.stage.setFullScreen(true);
+            this.stage.show();
+            Main.stg.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 }
