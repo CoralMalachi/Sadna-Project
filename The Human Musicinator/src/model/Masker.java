@@ -37,7 +37,6 @@ public interface Masker {
 
         while (i > 0){
             int stringIndex = random.nextInt(length);
-            System.out.println(stringIndex);
             if ((builder.charAt(stringIndex) != ' ') && (builder.charAt(stringIndex) != maskingChar.charAt(0))){
                 builder.replace(stringIndex, stringIndex + 1, maskingChar);
                 i--;

@@ -21,7 +21,7 @@ public class Model implements IModel {
     private static final String USER_TABLE = "Userlist";
     private static final String RECORDS_TABLE = "HighScore";
 
-    private GameState state;
+    private GameState state = new GameState();
 
     /**
      * Constructor.
@@ -29,7 +29,7 @@ public class Model implements IModel {
     public Model() {
         try {
             Class.forName(JDBC_DRIVER);
-            this.state = new GameState();
+//            this.state = new GameState();
         } catch(ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -161,6 +161,7 @@ public class Model implements IModel {
     private Hint executeQuery(String query) {
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
              PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, state.getEntity().id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 Hint hint = new Hint();

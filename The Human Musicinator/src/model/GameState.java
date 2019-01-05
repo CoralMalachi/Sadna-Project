@@ -126,7 +126,7 @@ public class GameState {
         this.hasWon = false;
         this.isFinished = false;
         this.numOfHintsGiven = 0;
-        this.maxNumOfHints = 10;
+        this.maxNumOfHints = 5;
     }
 
     public boolean isReady() {

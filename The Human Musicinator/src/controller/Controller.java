@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import main.Main;
 import model.Model;
 import util.Hint;
 import util.Record;
@@ -28,20 +29,21 @@ public class Controller{
     @FXML
     private TableView<Record> highScoreTable ;
 
-    private IModel model;
-    private Stage stage;
+    private IModel model = new Model();
+    private Stage stage = Main.stage;
+    private FXMLLoader fxmlLoader;
+    public static Parent root;
 
     //functions
     public Controller(){
+//        this.model = new Model();
+//        this.stage = main.Main.stage;
     }
 
-    public void setStage(Stage stage){
-        this.stage = stage;
+    public static void setRoot(Parent newRoot){
+        root = newRoot;
     }
 
-    public void setModel(Model model){
-        this.model = model;
-    }
 
     @FXML
     /**
@@ -165,6 +167,10 @@ public class Controller{
         }
 
         if (isUserExistInDB(userName, userPassword)) {
+            User newUser = new User();
+            newUser.username = userName;
+            newUser.password = userPassword;
+            model.startGame(newUser);
             changeScreen("../view/GamePage.fxml");
         } else {
             Alert userNotExistAlert = new Alert(Alert.AlertType.WARNING);
@@ -303,10 +309,10 @@ public class Controller{
 
     private void changeScreen(String path){
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(path));
-            Parent root = (Parent) fxmlLoader.load();
+            this.fxmlLoader = new FXMLLoader(getClass().getResource(path));
+            this.fxmlLoader.setRoot(this.fxmlLoader.load());
             this.stage.hide();
-            this.stage.setScene(new Scene(root));
+            this.stage.setScene(new Scene(this.fxmlLoader.getRoot()));
             this.stage.show();
         } catch(Exception e) {
             e.printStackTrace();
