@@ -217,4 +217,6 @@ public class Model implements IModel {
     public boolean isReady() {
         return state.isReady();
     }
+
+    public int getScore() { return  state.getScore(); }
 }

@@ -60,6 +60,10 @@ public class GameState {
         return this.maxNumOfHints;
     }
 
+    public int getScore() {
+        return (this.maxNumOfHints - this.numOfHintsGiven) * 10;
+    }
+
     private void updateHintsGivenCount() {
         if (this.numOfHintsGiven <= this.maxNumOfHints){
             this.numOfHintsGiven += 1;
