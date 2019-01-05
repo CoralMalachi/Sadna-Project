@@ -5,20 +5,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import util.Hint;
 import util.Record;
 import java.io.IOException;
+import model.IModel;
+import util.User;
 
-public class ViewController{
+public class Controller{
     //members
     @FXML
     private Stage stage = new Stage();
     @FXML
     private TextField answerTextBox;
     @FXML
-    private AnchorPane hintsScrollPane;
+    private ScrollPane hintsScrollPane;
     @FXML
     private TextField passwordTextBox;
     @FXML
@@ -26,22 +27,25 @@ public class ViewController{
     @FXML
     private TextField scoreTextBox;
     @FXML
-    private TableView<Record> highScoreTable = new TableView<Record>();
-    private VBox vBox= new VBox();
+    private TableView<Record> highScoreTable ;
+
+    private IModel model;
 
 
     //functions
+    public Controller(IModel model){
+        this.model = model;
+        this.highScoreTable = new TableView<Record>();
+    }
+
     @FXML
     /**
      * The function gives a hint to the user
      */
     public void pressGetHintButton(){
-        //todo: use the controller function to get hint from the db
-        String hint = getHint();//get the hint from controller
-        //todo: use the controller function to decrease the score of the user
-        //decrease the score of the user
+        Hint hint = model.getHint();
         updateCurrentScore();
-        if (getCurrentScore() == 0){
+        if (model.getScore() == 0){
             try {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Lose.fxml"));
                 Parent root = (Parent) fxmlLoader.load();
@@ -63,51 +67,55 @@ public class ViewController{
      *If he was right, he won.
      *If he was wrong, he can keep trying to guess.
      */
-    public void pressCheckPatternButton(){
-        //todo: use the controller function to check the pattern
-        if (checkPattern(this.answerTextBox.getText())){
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Win.fxml"));
-                Parent root = (Parent) fxmlLoader.load();
-                this.stage.setScene(new Scene(root));
-                this.stage.setFullScreen(true);
-                this.stage.show();
-                Main.stg.close();
-            } catch(Exception e) {
-                e.printStackTrace();
-            }
-        } else{
-            //todo : decrease the user score
-            updateCurrentScore();
-            if (getCurrentScore() == 0){
+    public void pressCheckPatternButton() {
+        if(model.validateUserGuess(this.answerTextBox.getText())){
+            if (model.checkUserGuess(this.answerTextBox.getText())) {
                 try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Lose.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Win.fxml"));
                     Parent root = (Parent) fxmlLoader.load();
                     this.stage.setScene(new Scene(root));
                     this.stage.setFullScreen(true);
                     this.stage.show();
                     Main.stg.close();
-                } catch(Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-            //show message to user that it's guess is incorrect
-            Alert wrongAnswerAlert = new Alert(Alert.AlertType.WARNING);
-            wrongAnswerAlert.setTitle("Wrong answer");
-            wrongAnswerAlert.setContentText("Try to guess again");
-            wrongAnswerAlert.showAndWait();
-            if(getCurrentScore() == 0){
-                try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Lose.fxml"));
-                    Parent root = (Parent) fxmlLoader.load();
-                    this.stage.setScene(new Scene(root));
-                    this.stage.setFullScreen(true);
-                    this.stage.show();
-                    Main.stg.close();
-                } catch(Exception e) {
-                    e.printStackTrace();
+            } else {
+                //todo : decrease the user score
+                //todo Limor : show another hint
+                updateCurrentScore();
+                if (model.getScore() == 0) {
+                    try {
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Lose.fxml"));
+                        Parent root = (Parent) fxmlLoader.load();
+                        this.stage.setScene(new Scene(root));
+                        this.stage.setFullScreen(true);
+                        this.stage.show();
+                        Main.stg.close();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    //show message to user that it's guess is incorrect
+                    Alert wrongAnswerAlert = new Alert(Alert.AlertType.WARNING);
+                    wrongAnswerAlert.setTitle("Wrong answer");
+                    wrongAnswerAlert.setContentText("Try to guess again");
+                    wrongAnswerAlert.showAndWait();
+                    if (model.getScore() == 0) {
+                        try {
+                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Lose.fxml"));
+                            Parent root = (Parent) fxmlLoader.load();
+                            this.stage.setScene(new Scene(root));
+                            this.stage.setFullScreen(true);
+                            this.stage.show();
+                            Main.stg.close();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
                 }
             }
         }
+        //todo Limor : show message to user - not according to pattern
     }
 
     @FXML
@@ -115,8 +123,7 @@ public class ViewController{
      * The function gives the user the artist's name
      */
     public void pressCheatButton(){
-        //todo: use the controller function to get the name of the artist
-        String artistName = getAnswer();
+        String artistName = model.getAnswer();
         this.answerTextBox.setText(artistName);
     }
 
@@ -126,7 +133,7 @@ public class ViewController{
      */
     public void pressGoToMenuButton(){
         //todo: use the controller function that reset the game
-        resetGame();
+        model.resetGame();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/MainMenu.fxml"));
             Parent root = (Parent) fxmlLoader.load();
@@ -151,8 +158,10 @@ public class ViewController{
      * The function returns true is the user exist in the DB or false otherwise
      */
     private boolean isUserExistInDB(String userName, String userPassword){
-        //Todo : use the controller function to check if the user exist in the DB
-        return isUserExist(userName, userPassword);
+        User loginUser = new User();
+        loginUser.username = userName;
+        loginUser.password = userPassword;
+        return model.loginUser(loginUser);
     }
 
     @FXML
@@ -222,10 +231,8 @@ public class ViewController{
      * The function initializes a new game
      */
     public void pressButtonPlayAgain(){
-        //todo: use the controller function to add 'newRecord' to the high score table
         addRecordToHighScoreTable();
-        //todo : use the "resetGame" function in the controller
-        resetGame();
+        model.resetGame();
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/GamePage.fxml"));
             Parent root = (Parent) fxmlLoader.load();
@@ -313,8 +320,10 @@ public class ViewController{
         String userPassword = this.passwordTextBox.getText();
 
         if(isValidUserDetails(userName, userPassword)){
-            //todo :use the controller function to add the user to the DB
-            if (register(userName, userPassword)){
+            User registerUser = new User();
+            registerUser.username = userName;
+            registerUser.password = userPassword;
+            if (model.registerUser(registerUser)){
                 try {
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/Login.fxml"));
                     Parent root = (Parent) fxmlLoader.load();
@@ -383,8 +392,7 @@ public class ViewController{
      * The function updates the user score
      */
     private void updateCurrentScore(){
-        //todo: use the controller function that calculates the current score of the player
-        this.scoreTextBox.setText(getCurrentScore());
+        this.scoreTextBox.setText(String.valueOf(model.getScore()));
     }
 
     /**
@@ -395,16 +403,8 @@ public class ViewController{
         //todo: use the controller function to get the user name
         newUser.username = getUserName();
         //todo: use the controller function to get the current score of the user
-        newUser.score = getCurrentScore();
+        newUser.score = model.getScore();
         return newUser;
-    }
-
-    /**
-     * The function initialize the scroll pane in the game page
-     */
-    private void initializeScrollPane(){//todo: maybe not needed?
-        this.hintsScrollPane.setTopAnchor( this.vBox, 10.0); // obviously provide your own constraints
-        this.hintsScrollPane.getChildren().add(this.vBox);
     }
 
     //todo: write addHintToScrollBarFunction
