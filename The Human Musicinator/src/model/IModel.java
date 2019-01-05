@@ -27,4 +27,9 @@ public interface IModel {
 
     boolean isReady();
 
+    int getScore();
+
+    String getAnswer();
+
+    void resetGame();
 }

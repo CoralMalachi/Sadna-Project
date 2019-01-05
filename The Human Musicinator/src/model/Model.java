@@ -112,7 +112,6 @@ public class Model implements IModel {
 
     /**
      * Returns a highscore table based on the difficulty received.
-     * @param difficulty The difficulty level of the requested highscore table.
      * @return The List of the scores, null if there's an error.
      */
     public List<Record> getHighScoreTable() {
@@ -219,4 +218,8 @@ public class Model implements IModel {
     }
 
     public int getScore() { return  state.getScore(); }
+
+    public String getAnswer() {return state.getAnswer();}
+
+    public void resetGame() {state.resetGame();}
 }
