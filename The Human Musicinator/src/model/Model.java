@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class Model implements IModel {
     private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String DB_URL = "jdbc:mysql://localhost/test?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false";
+    private static final String DB_URL = "jdbc:mysql://localhost/thehumanmusicinator?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false";
 
     private static final String USER = "root";
     private static final String PASS = "root";

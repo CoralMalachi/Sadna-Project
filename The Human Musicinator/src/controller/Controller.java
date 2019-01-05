@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import model.Model;
 import util.Hint;
 import util.Record;
 import java.io.IOException;
@@ -14,8 +15,6 @@ import util.User;
 
 public class Controller{
     //members
-    @FXML
-    private Stage stage = new Stage();
     @FXML
     private TextField answerTextBox;
     @FXML
@@ -30,12 +29,18 @@ public class Controller{
     private TableView<Record> highScoreTable ;
 
     private IModel model;
-
+    private Stage stage;
 
     //functions
-    public Controller(IModel model){
+    public Controller(){
+    }
+
+    public void setStage(Stage stage){
+        this.stage = stage;
+    }
+
+    public void setModel(Model model){
         this.model = model;
-        this.highScoreTable = new TableView<Record>();
     }
 
     @FXML
@@ -230,7 +235,7 @@ public class Controller{
             User registerUser = new User();
             registerUser.username = userName;
             registerUser.password = userPassword;
-            if (model.registerUser(registerUser)){
+            if (this.model.registerUser(registerUser)){
                 changeScreen("../view/Login.fxml");
             } else {
                 Alert emptyUserNameAlert = new Alert(Alert.AlertType.WARNING);
@@ -300,10 +305,9 @@ public class Controller{
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(path));
             Parent root = (Parent) fxmlLoader.load();
+            this.stage.hide();
             this.stage.setScene(new Scene(root));
-            this.stage.setFullScreen(true);
             this.stage.show();
-            Main.stg.close();
         } catch(Exception e) {
             e.printStackTrace();
         }
