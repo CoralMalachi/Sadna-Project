@@ -222,4 +222,6 @@ public class Model implements IModel {
     public String getAnswer() {return state.getAnswer();}
 
     public void resetGame() {state.resetGame();}
+
+    public User getUser() {return state.getUser();}
 }

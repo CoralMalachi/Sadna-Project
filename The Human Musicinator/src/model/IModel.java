@@ -32,4 +32,6 @@ public interface IModel {
     String getAnswer();
 
     void resetGame();
+
+    User getUser();
 }
