@@ -29,7 +29,7 @@ public class Controller{
     @FXML
     private TableView<Record> highScoreTable ;
 
-    private IModel model = new Model();
+    private IModel model =  Model.getInstance();
     private Stage stage = Main.stage;
     private FXMLLoader fxmlLoader;
     public static Parent root;

@@ -22,14 +22,20 @@ public class Model implements IModel {
     private static final String RECORDS_TABLE = "HighScore";
 
     private GameState state = new GameState();
-
+    private static Model instance;
+    public static Model getInstance(){
+        if(instance == null){
+            instance = new Model();
+        }
+        return instance;
+    }
     /**
      * Constructor.
      */
-    public Model() {
+    private Model() {
         try {
             Class.forName(JDBC_DRIVER);
-//            this.state = new GameState();
+            this.state = new GameState();
         } catch(ClassNotFoundException e) {
             e.printStackTrace();
         }
