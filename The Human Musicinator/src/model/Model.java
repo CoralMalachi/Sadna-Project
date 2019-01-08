@@ -231,4 +231,8 @@ public class Model implements IModel {
     public void resetGame() {state.resetGame();}
 
     public User getUser() {return state.getUser();}
+
+    public String getMaskedEntityName() {
+        return state.getMaskedEntityName();
+    }
 }

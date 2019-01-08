@@ -3,10 +3,7 @@ package controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import util.Hint;
 
 public class GamePageController {
@@ -16,7 +13,7 @@ public class GamePageController {
     @FXML
     private TextField answerTextBox;
     @FXML
-    private ScrollPane hintsScrollPane;
+    private TextArea textArea = new TextArea();
 
     @FXML
     /**
@@ -24,7 +21,6 @@ public class GamePageController {
      */
     private void updateCurrentScore(){
         this.scoreLabel.setText(String.valueOf(generalController.getScore()));
-
     }
 
     @FXML
@@ -36,9 +32,9 @@ public class GamePageController {
         updateCurrentScore();
         if (generalController.getScore() == 0){
             changeScreen("../view/Lose.fxml");
+        } else {
+            this.textArea.appendText(hint.info+"\n");
         }
-        //todo: correct - add the hint to the scroll pane
-        //this.hintsScrollPane.addEventHandler(null, );
     }
 
     @FXML
@@ -52,7 +48,6 @@ public class GamePageController {
             if (generalController.checkUserGuess(this.answerTextBox.getText())) {
                 changeScreen("../view/Win.fxml");
             } else {
-                //todo Limor : show another hint
                 updateCurrentScore();
                 if (generalController.getScore() == 0) {
                     changeScreen("../view/Lose.fxml");
@@ -66,8 +61,12 @@ public class GamePageController {
                     }
                 }
             }
+        } else {
+            Alert answerNotAccordingToPattern = new Alert(Alert.AlertType.WARNING);
+            answerNotAccordingToPattern.setTitle("Your guess doesn't match the pattern of the answer");
+            answerNotAccordingToPattern.setContentText("Try again");
+            answerNotAccordingToPattern.showAndWait();
         }
-        //todo Limor : show message to user - not according to pattern
     }
 
     @FXML
@@ -90,6 +89,4 @@ public class GamePageController {
             e.printStackTrace();
         }
     }
-
-    //todo Limor: write addHintToScrollBarFunction
 }

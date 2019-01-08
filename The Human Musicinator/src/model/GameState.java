@@ -43,6 +43,10 @@ public class GameState {
         this.hints = hints;
     }
 
+    public String getMaskedEntityName(){
+        return this.maskedEntityName;
+    }
+
     public Hint getHint() {
         Hint h = this.hints.get(numOfHintsGiven);
         updateHintsGivenCount();

@@ -37,7 +37,7 @@
         <Button fx:id="cheatButton" layoutX="369.0" layoutY="345.0" mnemonicParsing="false" onAction="#pressCheatButton" text="cheat" />
         <ScrollPane fx:id="hintsScrollPane" layoutX="115.0" layoutY="131.0" prefHeight="145.0" prefWidth="261.0">
           <content>
-            <TextArea prefHeight="200.0" prefWidth="200.0" />
+            <TextArea fx:id="textArea" prefHeight="194.0" prefWidth="261.0" />
           </content>
         </ScrollPane>
         <Label fx:id="scoreLabel" layoutX="69.0" layoutY="17.0" prefHeight="31.94140625" prefWidth="59.0" text="50" />
