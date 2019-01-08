@@ -25,7 +25,7 @@ public class Controller{
     @FXML
     private TextField userNameTextBox;
     @FXML
-    private TextField scoreTextBox;
+    private Label scoreLabel;// add new Label();
     @FXML
     private TableView<Record> highScoreTable ;
 
@@ -36,8 +36,6 @@ public class Controller{
 
     //functions
     public Controller(){
-//        this.model = new Model();
-//        this.stage = main.Main.stage;
     }
 
     public static void setRoot(Parent newRoot){
@@ -70,7 +68,6 @@ public class Controller{
             if (model.checkUserGuess(this.answerTextBox.getText())) {
                 changeScreen("../view/Win.fxml");
             } else {
-                //todo : decrease the user score
                 //todo Limor : show another hint
                 updateCurrentScore();
                 if (model.getScore() == 0) {
@@ -172,6 +169,7 @@ public class Controller{
             newUser.password = userPassword;
             model.startGame(newUser);
             changeScreen("../view/GamePage.fxml");
+            updateCurrentScore();
         } else {
             Alert userNotExistAlert = new Alert(Alert.AlertType.WARNING);
             userNotExistAlert.setTitle("Please register before trying to login");
@@ -186,7 +184,9 @@ public class Controller{
      */
     public void pressButtonPlayAgain(){
         model.insertIntoRecordsTable(getRecordOfCurrentUser());
+        User u = model.getUser();
         model.resetGame();
+        model.startGame(u);
         changeScreen("../view/GamePage.fxml");
     }
 
@@ -288,11 +288,13 @@ public class Controller{
         changeScreen("../view/MainMenu.fxml");
     }
 
+    @FXML
     /**
      * The function updates the user score
      */
     private void updateCurrentScore(){
-        this.scoreTextBox.setText(String.valueOf(model.getScore()));
+        this.scoreLabel.setText(String.valueOf(model.getScore()));
+        System.out.println("the text in the label is" + this.scoreLabel.getText());
     }
 
     /**
