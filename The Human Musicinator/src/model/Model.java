@@ -21,18 +21,12 @@ public class Model implements IModel {
     private static final String USER_TABLE = "Userlist";
     private static final String RECORDS_TABLE = "HighScore";
 
-    private GameState state = new GameState();
-    private static Model instance;
-    public static Model getInstance(){
-        if(instance == null){
-            instance = new Model();
-        }
-        return instance;
-    }
+    private GameState state;
+
     /**
      * Constructor.
      */
-    private Model() {
+    public Model() {
         try {
             Class.forName(JDBC_DRIVER);
             this.state = new GameState();

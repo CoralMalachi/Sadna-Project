@@ -22,7 +22,7 @@ public class GeneralController implements IController {
 
 
     private GeneralController(){
-        this.model = Model.getInstance();
+        this.model = new Model();
         this.stage = Main.stage;
     }
 
