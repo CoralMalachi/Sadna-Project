@@ -15,8 +15,6 @@ public class LoginController {
     private TextField passwordTextBox;
     @FXML
     private TextField userNameTextBox;
-    @FXML
-    private Label scoreLabel = new Label();
 
     @FXML
     /**
@@ -64,7 +62,6 @@ public class LoginController {
             newUser.password = userPassword;
             generalController.startGame(newUser);
             changeScreen("../view/GamePage.fxml");
-            updateCurrentScore();
         } else {
             Alert userNotExistAlert = new Alert(Alert.AlertType.WARNING);
             userNotExistAlert.setTitle("Please register before trying to login");
@@ -83,14 +80,6 @@ public class LoginController {
         } catch(Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @FXML
-    /**
-     * The function updates the user score
-     */
-    private void updateCurrentScore(){
-        this.scoreLabel.setText(String.valueOf(generalController.getScore()));
     }
 
     /**

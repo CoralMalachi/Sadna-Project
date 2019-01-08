@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import main.Main;
 import model.Model;

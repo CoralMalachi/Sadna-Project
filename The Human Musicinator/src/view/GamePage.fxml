@@ -40,7 +40,7 @@
             <TextArea prefHeight="200.0" prefWidth="200.0" />
           </content>
         </ScrollPane>
-        <Label fx:id="scoreLabel" layoutX="69.0" layoutY="17.0" prefHeight="31.94140625" prefWidth="59.0" text="" />
+        <Label fx:id="scoreLabel" layoutX="69.0" layoutY="17.0" prefHeight="31.94140625" prefWidth="59.0" text="50" />
       </children>
     </Pane>
   </children>

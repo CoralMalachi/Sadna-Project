@@ -12,7 +12,7 @@ import util.Hint;
 public class GamePageController {
     private GeneralController generalController = GeneralController.getInstance();
     @FXML
-    private Label scoreLabel;
+    private Label scoreLabel = new Label();
     @FXML
     private TextField answerTextBox;
     @FXML
@@ -24,6 +24,7 @@ public class GamePageController {
      */
     private void updateCurrentScore(){
         this.scoreLabel.setText(String.valueOf(generalController.getScore()));
+
     }
 
     @FXML
