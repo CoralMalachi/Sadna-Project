@@ -202,7 +202,7 @@ public class Model implements IModel {
         return hintList;
     }
 
-    public void startGame(User user/*, Entity entity*/) {
+    public void startGame(User user) {
         this.state.setUser(user);
         this.state.setEntity(getEntity());
         this.state.setHintList(getHintList());
