@@ -294,7 +294,6 @@ public class Controller{
      */
     private void updateCurrentScore(){
         this.scoreLabel.setText(String.valueOf(model.getScore()));
-        System.out.println("the text in the label is" + this.scoreLabel.getText());
     }
 
     /**
