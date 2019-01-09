@@ -43,6 +43,10 @@ public class GameState {
         this.hints = hints;
     }
 
+    public String getMaskedEntityName(){
+        return this.maskedEntityName;
+    }
+
     public Hint getHint() {
         Hint h = this.hints.get(numOfHintsGiven);
         updateHintsGivenCount();
@@ -84,7 +88,7 @@ public class GameState {
         ArrayList<String> userGuessList = new ArrayList<String>(Arrays.asList(userGuess.split("")));
         ArrayList<String> maskedEntityList = new ArrayList<String>(Arrays.asList(this.maskedEntityName.split("")));
         for (int i = 0; i < this.entity.name.length(); i++){
-            if (maskedEntityList.get(i).equals("*")){
+            if (!maskedEntityList.get(i).equals("*")){
                 if (!maskedEntityList.get(i).equals(userGuessList.get(i))){
                     return false;
                 }

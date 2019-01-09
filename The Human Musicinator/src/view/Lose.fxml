@@ -12,7 +12,7 @@
 <?import javafx.scene.text.*?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="706.0" prefWidth="652.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.Controller">
+<AnchorPane prefHeight="706.0" prefWidth="652.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.LoseController">
   <children>
     <Label layoutX="215.0" layoutY="14.0" prefHeight="71.0" prefWidth="239.0" text="You Lose">
       <font>

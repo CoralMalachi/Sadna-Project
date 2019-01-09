@@ -21,7 +21,7 @@ public class Model implements IModel {
     private static final String USER_TABLE = "Userlist";
     private static final String RECORDS_TABLE = "HighScore";
 
-    private GameState state = new GameState();
+    private GameState state;
 
     /**
      * Constructor.
@@ -29,7 +29,7 @@ public class Model implements IModel {
     public Model() {
         try {
             Class.forName(JDBC_DRIVER);
-//            this.state = new GameState();
+            this.state = new GameState();
         } catch(ClassNotFoundException e) {
             e.printStackTrace();
         }
@@ -196,7 +196,7 @@ public class Model implements IModel {
         return hintList;
     }
 
-    public void startGame(User user/*, Entity entity*/) {
+    public void startGame(User user) {
         this.state.setUser(user);
         this.state.setEntity(getEntity());
         this.state.setHintList(getHintList());
@@ -225,4 +225,8 @@ public class Model implements IModel {
     public void resetGame() {state.resetGame();}
 
     public User getUser() {return state.getUser();}
+
+    public String getMaskedEntityName() {
+        return state.getMaskedEntityName();
+    }
 }
