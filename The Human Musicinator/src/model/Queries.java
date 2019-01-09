@@ -42,6 +42,7 @@ public final class Queries {
      public static final Map<String, String> RANDOM_ID_QUERY_MAP;
      static {
          RANDOM_ID_QUERY_MAP= new HashMap<String, String>();
+         RANDOM_ID_QUERY_MAP.put("idQuery", "SELECT id, name FROM artist ORDER BY RAND() LIMIT 1");
          RANDOM_ID_QUERY_MAP.put("idOnlyArtistQuery","select artist.id,artist.name from artist inner join artist_meta on artist_meta.id=artist.id where artist_meta.rating>78 and artist_meta.rating_count>3 and artist.type=(select id from artist_type where artist_type.name=\"Person\") order by rand() limit 1");
          RANDOM_ID_QUERY_MAP.put("idOnlyGroupQuery","select artist.id,artist.name from artist inner join artist_meta on artist_meta.id=artist.id where artist_meta.rating>78 and artist_meta.rating_count>3 and artist.type=(select id from artist_type where artist_type.name=\"Group\") order by rand() limit 1");
      }

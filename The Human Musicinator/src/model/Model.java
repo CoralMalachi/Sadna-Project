@@ -1,5 +1,8 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.sql.*;
 
 import util.User;
@@ -12,14 +15,11 @@ import java.util.Random;
 import java.util.ArrayList;
 
 public class Model implements IModel {
-    private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String DB_URL = "jdbc:mysql://localhost/thehumanmusicinator?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false";
+    private static  String JDBC_DRIVER;
+    private static  String DB_URL;
 
-    private static final String USER = "root";
-    private static final String PASS = "root";
-
-    private static final String USER_TABLE = "Userlist";
-    private static final String RECORDS_TABLE = "HighScore";
+    private static  String USER;
+    private static  String PASS;
 
     private GameState state;
 
@@ -27,10 +27,27 @@ public class Model implements IModel {
      * Constructor.
      */
     public Model() {
+        readConfig();
         try {
-            Class.forName(JDBC_DRIVER);
+            System.out.println(JDBC_DRIVER);
+            System.out.println(DB_URL);
+            System.out.println(USER);
+            System.out.println(PASS);
+            Class.forName(JDBC_DRIVER);            
             this.state = new GameState();
         } catch(ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void readConfig() {
+        File file = new File("The Human Musicinator/src/config.txt");
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            JDBC_DRIVER = br.readLine().replaceFirst("JDBC_DRIVER=", "");
+            DB_URL = br.readLine().replaceFirst("DB_URL=", "");
+            USER = br.readLine().replaceFirst("USER=", "");
+            PASS = br.readLine().replaceFirst("PASS=", "");
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -42,8 +59,8 @@ public class Model implements IModel {
      */
     public boolean registerUser(User user) {
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement checkStmt = conn.prepareStatement("SELECT * FROM " + USER_TABLE + " WHERE UserName = ?");
-             PreparedStatement registerStmt = conn.prepareStatement("INSERT INTO " + USER_TABLE + " VALUES ('0', ?, ?)")) {
+             PreparedStatement checkStmt = conn.prepareStatement("SELECT * FROM Userlist WHERE UserName = ?");
+             PreparedStatement registerStmt = conn.prepareStatement("INSERT INTO Userlist VALUES ('0', ?, ?)")) {
             // Checks if this username is already taken, returns false if it is.
             checkStmt.setString(1, user.username);
             ResultSet rs = checkStmt.executeQuery();
@@ -71,7 +88,7 @@ public class Model implements IModel {
      */
     public boolean loginUser(User user) {
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + USER_TABLE + " WHERE UserName = ? AND UserPassword = ?")) {
+             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Userlist WHERE UserName = ? AND UserPassword = ?")) {
             stmt.setString(1, user.username);
             stmt.setString(2, user.password);
             ResultSet rs = stmt.executeQuery();
@@ -96,7 +113,7 @@ public class Model implements IModel {
      */
     public boolean insertIntoRecordsTable(Record record) {
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + RECORDS_TABLE + " VALUES ('0', ?, ?)")) {
+             PreparedStatement stmt = conn.prepareStatement("INSERT INTO Highscore VALUES ('0', ?, ?)")) {
             stmt.setString(1, record.username);
             stmt.setString(2, String.valueOf(record.score));
             stmt.executeUpdate();
@@ -117,7 +134,7 @@ public class Model implements IModel {
     public List<Record> getHighScoreTable() {
         List<Record> scores = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + RECORDS_TABLE + " ORDER BY Score DESC")) {
+             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Highscore ORDER BY Score DESC")) {
             ResultSet rs = stmt.executeQuery();
             // Creating a list of records from the ResultSet.
             while (rs.next()) {
@@ -139,8 +156,12 @@ public class Model implements IModel {
     }
 
     public Entity getEntity() {
+        Random random = new Random();
+        List<String> keys = new ArrayList<>(Queries.RANDOM_ID_QUERY_MAP.keySet());
+        String randomKey = keys.get(random.nextInt(keys.size()));
+        String randomQuery = Queries.HINT_QUERY_MAP.get(randomKey);
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement stmt = conn.prepareStatement("SELECT id, name FROM artist ORDER BY RAND() LIMIT 1")) {
+             PreparedStatement stmt = conn.prepareStatement(randomQuery)) {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 Entity entity = new Entity();
@@ -182,11 +203,11 @@ public class Model implements IModel {
         List<Hint> hintList = new ArrayList<>();
         Random random = new Random();
         int numOfHints = state.getMaxNumOfHints();
-        List<String> keys = new ArrayList<>(Queries.QUERY_MAP.keySet());
+        List<String> keys = new ArrayList<>(Queries.HINT_QUERY_MAP.keySet());
         for (int i = 0; i < numOfHints; i++) {
             String randomKey = keys.get(random.nextInt(keys.size()));
             keys.remove(randomKey);
-            String randomQuery = Queries.QUERY_MAP.get(randomKey);
+            String randomQuery = Queries.HINT_QUERY_MAP.get(randomKey);
             Hint hint = executeQuery(randomQuery);
             if (hint != null) {
                 hint.hintType = randomKey;

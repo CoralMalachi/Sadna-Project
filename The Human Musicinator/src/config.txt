@@ -1,0 +1,4 @@
+JDBC_DRIVER=com.mysql.cj.jdbc.Driver
+DB_URL=jdbc:mysql://localhost/thehumanmusicinator?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&useSSL=false
+USER=root
+PASS=root
