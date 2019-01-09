@@ -2,19 +2,28 @@ package controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import util.Hint;
 
-public class GamePageController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class GamePageController implements Initializable {
     private GeneralController generalController = GeneralController.getInstance();
     @FXML
     private Label scoreLabel = new Label();
     @FXML
-    private TextField answerTextBox;
+    private TextField answerTextBox = new TextField();
     @FXML
     private TextArea textArea = new TextArea();
 
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        this.scoreLabel.setText(String.valueOf(generalController.getScore()));
+        this.answerTextBox.setText(this.generalController.getModel().getMaskedEntityName());
+    }
     @FXML
     /**
      * The function updates the user score

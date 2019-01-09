@@ -34,4 +34,7 @@ public interface IModel {
     void resetGame();
 
     User getUser();
+
+    String getMaskedEntityName();
+
 }
