@@ -152,12 +152,12 @@ public class Model implements IModel {
     }
 
     public Entity getEntity() {
-        Random random = new Random();
-        List<String> keys = new ArrayList<>(Queries.RANDOM_ID_QUERY_MAP.keySet());
-        String randomKey = keys.get(random.nextInt(keys.size()));
-        String randomQuery = Queries.HINT_QUERY_MAP.get(randomKey);
+        // Random random = new Random();
+        // List<String> keys = new ArrayList<>(Queries.RANDOM_ID_QUERY_MAP.keySet());
+        // String randomKey = keys.get(random.nextInt(keys.size()));
+        // String randomQuery = Queries.HINT_QUERY_MAP.get(randomKey);
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement stmt = conn.prepareStatement(randomQuery)) {
+             PreparedStatement stmt = conn.prepareStatement("SELECT id, name FROM artist ORDER BY RAND() LIMIT 1")) {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 Entity entity = new Entity();
