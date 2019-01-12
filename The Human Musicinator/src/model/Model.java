@@ -29,10 +29,6 @@ public class Model implements IModel {
     public Model() {
         readConfig();
         try {
-            System.out.println(JDBC_DRIVER);
-            System.out.println(DB_URL);
-            System.out.println(USER);
-            System.out.println(PASS);
             Class.forName(JDBC_DRIVER);            
             this.state = new GameState();
         } catch(ClassNotFoundException e) {
