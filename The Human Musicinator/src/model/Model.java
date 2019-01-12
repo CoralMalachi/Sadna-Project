@@ -15,11 +15,11 @@ import java.util.Random;
 import java.util.ArrayList;
 
 public class Model implements IModel {
-    private static  String JDBC_DRIVER;
-    private static  String DB_URL;
+    private static String JDBC_DRIVER;
+    private static String DB_URL;
 
-    private static  String USER;
-    private static  String PASS;
+    private static String USER;
+    private static String PASS;
 
     private GameState state;
 
@@ -59,8 +59,8 @@ public class Model implements IModel {
      */
     public boolean registerUser(User user) {
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement checkStmt = conn.prepareStatement("SELECT * FROM Userlist WHERE UserName = ?");
-             PreparedStatement registerStmt = conn.prepareStatement("INSERT INTO Userlist VALUES ('0', ?, ?)")) {
+             PreparedStatement checkStmt = conn.prepareStatement("SELECT * FROM users WHERE Username = ?");
+             PreparedStatement registerStmt = conn.prepareStatement("INSERT INTO users VALUES ('0', ?, ?)")) {
             // Checks if this username is already taken, returns false if it is.
             checkStmt.setString(1, user.username);
             ResultSet rs = checkStmt.executeQuery();
@@ -88,7 +88,7 @@ public class Model implements IModel {
      */
     public boolean loginUser(User user) {
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Userlist WHERE UserName = ? AND UserPassword = ?")) {
+             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM users WHERE Username = ? AND Password = ?")) {
             stmt.setString(1, user.username);
             stmt.setString(2, user.password);
             ResultSet rs = stmt.executeQuery();
