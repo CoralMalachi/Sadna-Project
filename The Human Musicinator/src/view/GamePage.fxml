@@ -31,9 +31,9 @@
           </image>
         </ImageView>
         <Button fx:id="cheatButton" layoutX="369.0" layoutY="345.0" mnemonicParsing="false" onAction="#pressCheatButton" text="cheat" />
-        <ScrollPane fx:id="hintsScrollPane" layoutX="79.0" layoutY="113.0" prefHeight="143.0" prefWidth="393.0">
+        <ScrollPane fx:id="hintsScrollPane" layoutX="16.0" layoutY="113.0" prefHeight="143.0" prefWidth="456.0">
           <content>
-            <TextArea fx:id="textArea" prefHeight="194.0" prefWidth="375.0" />
+            <TextArea fx:id="textArea" prefHeight="194.0" prefWidth="436.0" />
           </content>
         </ScrollPane>
         <Label fx:id="scoreLabel" layoutX="69.0" layoutY="17.0" prefHeight="31.94140625" prefWidth="59.0" text="50" />

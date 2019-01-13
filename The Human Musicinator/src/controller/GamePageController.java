@@ -38,24 +38,25 @@ public class GamePageController implements Initializable {
     /**
      * The function gives a hint to the user
      */
-    public void pressGetHintButton(){
-        Hint hint = generalController.getHint();
-        if (hint == null ||  hint.info == null || hint.hintType == null){
+    public void pressGetHintButton() {
+        if (this.generalController.getModel().getNumRemainingHints() <= 0) {
             Alert noMoreHintAlert = new Alert(Alert.AlertType.WARNING);
             noMoreHintAlert.setTitle("There are no more hints");
-            noMoreHintAlert.setContentText("Please try to guess or use the cheat button");
+            noMoreHintAlert.setContentText("Game Over");
             noMoreHintAlert.showAndWait();
-            this.getHintButton.disabledProperty();
+            changeScreen("../view/Lose.fxml");
         } else {
-            updateCurrentScore();
-            if (generalController.getScore() == 0){
-                changeScreen("../view/Lose.fxml");
-            } else {
+            Hint hint = generalController.getHint();
+            if (hint != null && hint.info != null && hint.hintType != null) {
+                updateCurrentScore();
                 String description = getDescriptionOfHint(hint.hintType);
-                this.textArea.appendText(description + hint.info+"\n");
+                this.textArea.appendText(description + hint.info + "\n");
+
             }
         }
     }
+
+
 
     private String getDescriptionOfHint(String hintType){
         switch(hintType){
@@ -92,14 +93,16 @@ public class GamePageController implements Initializable {
             case "mostFreqLanguageAlbumsArtist" :{
                 return "The most common language in the artist's albums is: ";
             }
-            case "mostFreqLanguageSinglesArtist: ":{
+            case "mostFreqLanguageSinglesArtist":{
                 return "The most common language in the artist's singles is: ";
             }
             case "artistAliasNameQuery":{
                 return "The stage name of the artist is: ";
             }
+            default:{
+                return "Another hint is: ";
+            }
         }
-        return null;
     }
 
     @FXML
@@ -109,28 +112,20 @@ public class GamePageController implements Initializable {
      *If he was wrong, he can keep trying to guess.
      */
     public void pressCheckPatternButton() {
-        if(generalController.validateUserGuess(this.answerTextBox.getText())){
+        if (generalController.validateUserGuess(this.answerTextBox.getText())) {
             if (generalController.checkUserGuess(this.answerTextBox.getText())) {
                 changeScreen("../view/Win.fxml");
             } else {
-                updateCurrentScore();
-                if (generalController.getScore() == 0) {
-                    changeScreen("../view/Lose.fxml");
-                    //show message to user that it's guess is incorrect
-                    Alert wrongAnswerAlert = new Alert(Alert.AlertType.WARNING);
-                    wrongAnswerAlert.setTitle("Wrong answer");
-                    wrongAnswerAlert.setContentText("Try to guess again");
-                    wrongAnswerAlert.showAndWait();
-                    if (generalController.getScore() == 0) {
-                        changeScreen("../view/Lose.fxml");
-                    }
-                }
+                Alert wrongAnswerAlert = new Alert(Alert.AlertType.WARNING);
+                wrongAnswerAlert.setTitle("Wrong answer");
+                wrongAnswerAlert.setContentText("Try to guess again");
+                wrongAnswerAlert.showAndWait();
             }
         } else {
-            Alert answerNotAccordingToPattern = new Alert(Alert.AlertType.WARNING);
-            answerNotAccordingToPattern.setTitle("Your guess doesn't match the pattern of the answer");
-            answerNotAccordingToPattern.setContentText("Try again");
-            answerNotAccordingToPattern.showAndWait();
+            Alert wrongAnswerAlert = new Alert(Alert.AlertType.WARNING);
+            wrongAnswerAlert.setTitle("Invalid input");
+            wrongAnswerAlert.setContentText("Your answer isn't in the valid format");
+            wrongAnswerAlert.showAndWait();
         }
     }
 

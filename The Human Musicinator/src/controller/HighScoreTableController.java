@@ -28,13 +28,10 @@ public class HighScoreTableController implements Initializable {
         //highScoreTable.setEditable(true);
         List<Record> galList = this.generalController.getModel().getHighScoreTable();
 
-        ObservableList<Record> recordList = FXCollections.observableArrayList();
-        for (Record r : galList){
-            recordList.add(r);
-        }
+        ObservableList<Record> recordList = FXCollections.observableArrayList(galList);
         //make sure the property value factory should be exactly same as the e.g getStudentId from your model class
-        userNameCol.setCellValueFactory(new PropertyValueFactory<>("userNameCol"));
-        scoreCol.setCellValueFactory(new PropertyValueFactory<>("scoreCol"));
+        userNameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
+        scoreCol.setCellValueFactory(new PropertyValueFactory<>("score"));
         this.highScoreTable.setItems(recordList);
 
     }

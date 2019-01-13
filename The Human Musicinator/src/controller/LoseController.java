@@ -14,7 +14,10 @@ public class LoseController {
      * The function initializes a new game
      */
     public void pressButtonPlayAgain(){
-        generalController.insertIntoRecordsTable(getRecordOfCurrentUser());
+        if (getRecordOfCurrentUser().score > 0){
+            generalController.insertIntoRecordsTable(getRecordOfCurrentUser());
+        }
+        //restart a new game
         User u = generalController.getUser();
         generalController.resetGame();
         generalController.startGame(u);
@@ -27,8 +30,9 @@ public class LoseController {
      * current screen to the main menu
      */
     public void pressButtonMenu(){
-        generalController.insertIntoRecordsTable(getRecordOfCurrentUser());
-        //todo Limor: use getHighScoreTable that Gal Wrote
+        if (getRecordOfCurrentUser().score > 0){
+            generalController.insertIntoRecordsTable(getRecordOfCurrentUser());
+        }
         User u = generalController.getUser();
         generalController.resetGame();
         generalController.startGame(u);

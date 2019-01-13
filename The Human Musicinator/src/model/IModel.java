@@ -29,6 +29,8 @@ public interface IModel {
 
     int getScore();
 
+    int getNumRemainingHints();
+
     String getAnswer();
 
     void resetGame();

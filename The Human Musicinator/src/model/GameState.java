@@ -17,7 +17,7 @@ public class GameState {
     private List<Hint> hints;
     private boolean isFinished;
     private boolean hasWon;
-    private final int MAX_SCORE = 50;
+    //private final int MAX_SCORE = 50;
 
     public GameState() {        
         this.resetGame();
@@ -54,7 +54,7 @@ public class GameState {
             updateHintsGivenCount();
             return h;
         } catch (Exception e){
-            //todo : get another hint and return it
+            //todo : get another hint and return it - this is the problem
             return null;
         }
     }
@@ -71,8 +71,11 @@ public class GameState {
     }
 
     public int getScore() {
-        //return (this.maxNumOfHints - this.numOfHintsGiven) * 10;
-        return (MAX_SCORE/10 - this.numOfHintsGiven) * 10;
+        return (this.maxNumOfHints - this.numOfHintsGiven) * 10;
+    }
+
+    public int getNumRemainingHints() {
+        return this.maxNumOfHints - this.numOfHintsGiven;
     }
 
     private void updateHintsGivenCount() {
@@ -89,11 +92,13 @@ public class GameState {
      * @return True if the user's guess fits the given masked entity pattern, false otherwise.
      */
     public boolean validateUserGuess(String userGuess) {
-        if (userGuess.length() != this.entity.name.length()){
+        String guess = userGuess.toLowerCase();
+        String maskedEntityName = this.maskedEntityName.toLowerCase();
+        if (guess.length() != this.entity.name.length()){
             return false;
         }
-        ArrayList<String> userGuessList = new ArrayList<String>(Arrays.asList(userGuess.split("")));
-        ArrayList<String> maskedEntityList = new ArrayList<String>(Arrays.asList(this.maskedEntityName.split("")));
+        ArrayList<String> userGuessList = new ArrayList<String>(Arrays.asList(guess.split("")));
+        ArrayList<String> maskedEntityList = new ArrayList<String>(Arrays.asList(maskedEntityName.split("")));
         for (int i = 0; i < this.entity.name.length(); i++){
             if (!maskedEntityList.get(i).equals("*")){
                 if (!maskedEntityList.get(i).equals(userGuessList.get(i))){
@@ -114,9 +119,11 @@ public class GameState {
      * @return True if the user's guess is the entity, false otherwise.
      */
     public boolean checkUserGuess(String userGuess) {
-        ArrayList<String> userGuessList = new ArrayList<String>(Arrays.asList(userGuess.split("")));
-        ArrayList<String> entityList = new ArrayList<String>(Arrays.asList(this.entity.name.split("")));
-        for (int i = 0; i < this.entity.name.length(); i++){
+        String guess = userGuess.toLowerCase();
+        String entityName = this.entity.name.toLowerCase();
+        ArrayList<String> userGuessList = new ArrayList<String>(Arrays.asList(guess.split("")));
+        ArrayList<String> entityList = new ArrayList<String>(Arrays.asList(entityName.split("")));
+        for (int i = 0; i < entityName.length(); i++){
             if (!userGuessList.get(i).equals(entityList.get(i))){
                 return false;
             }
@@ -137,7 +144,7 @@ public class GameState {
         this.hasWon = false;
         this.isFinished = false;
         this.numOfHintsGiven = 0;
-        this.maxNumOfHints = 7;
+        this.maxNumOfHints = 5;
 
     }
 
