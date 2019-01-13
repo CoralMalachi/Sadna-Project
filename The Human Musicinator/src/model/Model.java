@@ -1,5 +1,6 @@
 package model;
 
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -14,14 +15,14 @@ import java.util.List;
 import java.util.Random;
 import java.util.ArrayList;
 
-public class Model implements IModel {
+public class Model implements model.IModel {
     private static String JDBC_DRIVER;
     private static String DB_URL;
 
     private static String USER;
     private static String PASS;
 
-    private GameState state;
+    private model.GameState state;
 
     /**
      * Constructor.
@@ -152,13 +153,15 @@ public class Model implements IModel {
     }
 
     public Entity getEntity() {
-        // Random random = new Random();
-        // List<String> keys = new ArrayList<>(Queries.RANDOM_ID_QUERY_MAP.keySet());
-        // String randomKey = keys.get(random.nextInt(keys.size()));
-        // String randomQuery = Queries.HINT_QUERY_MAP.get(randomKey);
+         Random random = new Random();
+         List<String> keys = new ArrayList<>(Queries.RANDOM_ID_QUERY_MAP.keySet());
+         String randomKey = keys.get(random.nextInt(keys.size()));
+         String randomQuery = Queries.RANDOM_ID_QUERY_MAP.get(randomKey);
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-             PreparedStatement stmt = conn.prepareStatement("SELECT id, name FROM artist ORDER BY RAND() LIMIT 1")) {
-            ResultSet rs = stmt.executeQuery();
+            // PreparedStatement stmt = conn.prepareStatement("SELECT id, name FROM artist ORDER BY RAND() LIMIT 1")) {
+            PreparedStatement stmt = conn.prepareStatement(randomQuery)) {
+
+                ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 Entity entity = new Entity();
                 entity.id = rs.getInt("id");
@@ -205,7 +208,7 @@ public class Model implements IModel {
             keys.remove(randomKey);
             String randomQuery = Queries.HINT_QUERY_MAP.get(randomKey);
             Hint hint = executeQuery(randomQuery);
-            if (hint != null) {
+            if (hint != null && hint.info != null ) {
                 hint.hintType = randomKey;
                 hintList.add(hint);
             }
@@ -215,7 +218,11 @@ public class Model implements IModel {
 
     public void startGame(User user) {
         this.state.setUser(user);
-        this.state.setEntity(getEntity());
+        Entity e;
+        while ((e = getEntity())== null){
+            this.state.setEntity(e);
+        }
+        this.state.setEntity(e);
         this.state.setHintList(getHintList());
     }    
 

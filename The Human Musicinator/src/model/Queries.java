@@ -42,7 +42,7 @@ public final class Queries {
      public static final Map<String, String> RANDOM_ID_QUERY_MAP;
      static {
          RANDOM_ID_QUERY_MAP= new HashMap<String, String>();
-         RANDOM_ID_QUERY_MAP.put("idQuery", "SELECT id, name FROM artist ORDER BY RAND() LIMIT 1");
+         //RANDOM_ID_QUERY_MAP.put("idQuery", "SELECT id, name FROM artist ORDER BY RAND() LIMIT 1");
          RANDOM_ID_QUERY_MAP.put("idOnlyArtistQuery","select artist.id,artist.name from artist inner join artist_meta on artist_meta.id=artist.id where artist_meta.rating>78 and artist_meta.rating_count>3 and artist.type=(select id from artist_type where artist_type.name=\"Person\") order by rand() limit 1");
          RANDOM_ID_QUERY_MAP.put("idOnlyGroupQuery","select artist.id,artist.name from artist inner join artist_meta on artist_meta.id=artist.id where artist_meta.rating>78 and artist_meta.rating_count>3 and artist.type=(select id from artist_type where artist_type.name=\"Group\") order by rand() limit 1");
      }
@@ -50,9 +50,9 @@ public final class Queries {
              HINT_QUERY_MAP = new HashMap<String, String>();
 //             QUERY_MAP.put("idOnlyArtistQuery", "SELECT artist.id,artist.name FROM artist where artist.type=(select id from artist_type where artist_type.name=\"Person\") ORDER BY RAND() LIMIT 1");
 //             QUERY_MAP.put("idOnlyGroupQuery", "SELECT artist.id,artist.name FROM artist where artist.type=(select id from artist_type where artist_type.name=\"Group\") ORDER BY RAND() LIMIT 1");
-             HINT_QUERY_MAP.put("yearQuery", "SELECT begin_date_year FROM artist WHERE id = ?");
-             HINT_QUERY_MAP.put("monthQuery", "SELECT begin_date_month FROM artist WHERE id = ?");
-             HINT_QUERY_MAP.put("dayQuery", "SELECT begin_date_day FROM artist WHERE id = ?");
+            // HINT_QUERY_MAP.put("yearQuery", "SELECT begin_date_year FROM artist WHERE id = ?");
+            // HINT_QUERY_MAP.put("monthQuery", "SELECT begin_date_month FROM artist WHERE id = ?");
+           //  HINT_QUERY_MAP.put("dayQuery", "SELECT begin_date_day FROM artist WHERE id = ?");
              HINT_QUERY_MAP.put("bornPlaceQuery", "SELECT area.name FROM area INNER JOIN artist ON area.id=artist.area and artist.id = ?");
              HINT_QUERY_MAP.put("genderQuery", "SELECT gender.name FROM gender INNER JOIN artist ON gender.id=artist.gender and artist.id = ?");
              HINT_QUERY_MAP.put("artistTypeQuery", "SELECT artist_type.name FROM artist_type INNER JOIN artist ON artist_type.id=artist.type and artist.id = ?");
