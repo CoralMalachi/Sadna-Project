@@ -51,10 +51,55 @@ public class GamePageController implements Initializable {
             if (generalController.getScore() == 0){
                 changeScreen("../view/Lose.fxml");
             } else {
-                String description;
-                this.textArea.appendText(hint.info+"\n");
+                String description = getDescriptionOfHint(hint.hintType);
+                this.textArea.appendText(description + hint.info+"\n");
             }
         }
+    }
+
+    private String getDescriptionOfHint(String hintType){
+        switch(hintType){
+            case "bornPlaceQuery": {
+                return "The artist was born in: ";
+            }
+            case "genderQuery": {
+                return "The artist's gender is: ";
+            }
+            case "artistTypeQuery":{
+                return "The type of the artist is: ";
+            }
+            case "artistBornAreaTypeQuery":{
+                return "The was born in: ";
+            }
+            case "englishAlbumOfArtist": {
+                return "The name of the artist's English album is: ";
+            }
+            case "englishSingleOfArtist":{
+                return "The name of the artist's English single is: ";
+            }
+            case "numberOfArtistAlbumsQuery": {
+                return "The number of albums of the artist is: ";
+            }
+            case "numberOfSingleAlbumsQuery" : {
+                return "The number of the artist's singles is: ";
+            }
+            case "mostFreqReleasesAreaOfArtistQuery" : {
+                return "The most frequent releases area of artist is: ";
+            }
+            case "mostActiveYearArtistQuery" : {
+                return "The artist's most active year is: ";
+            }
+            case "mostFreqLanguageAlbumsArtist" :{
+                return "The most common language in the artist's albums is: ";
+            }
+            case "mostFreqLanguageSinglesArtist: ":{
+                return "The most common language in the artist's singles is: ";
+            }
+            case "artistAliasNameQuery":{
+                return "The stage name of the artist is: ";
+            }
+        }
+        return null;
     }
 
     @FXML

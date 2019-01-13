@@ -217,7 +217,6 @@ public class Model implements model.IModel {
     }
 
     public boolean isArtistNameValid(String artistName){
-        System.out.println("the entity nme is :"+artistName);
         return artistName.matches("[a-zA-Z0-9 ]*");
     }
 

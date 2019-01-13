@@ -49,9 +49,14 @@ public class GameState {
     }
 
     public Hint getHint() {
-        Hint h = this.hints.get(numOfHintsGiven);
-        updateHintsGivenCount();
-        return h;
+        try{
+            Hint h = this.hints.get(numOfHintsGiven);
+            updateHintsGivenCount();
+            return h;
+        } catch (Exception e){
+            //todo : get another hint and return it
+            return null;
+        }
     }
 
     public boolean getIsFinished() {
