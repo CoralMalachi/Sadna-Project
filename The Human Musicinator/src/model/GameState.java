@@ -17,6 +17,7 @@ public class GameState {
     private List<Hint> hints;
     private boolean isFinished;
     private boolean hasWon;
+    private final int MAX_SCORE = 50;
 
     public GameState() {        
         this.resetGame();
@@ -65,7 +66,8 @@ public class GameState {
     }
 
     public int getScore() {
-        return (this.maxNumOfHints - this.numOfHintsGiven) * 10;
+        //return (this.maxNumOfHints - this.numOfHintsGiven) * 10;
+        return (MAX_SCORE/10 - this.numOfHintsGiven) * 10;
     }
 
     private void updateHintsGivenCount() {

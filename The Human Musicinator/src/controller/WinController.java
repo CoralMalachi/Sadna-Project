@@ -29,6 +29,9 @@ public class WinController {
     public void pressButtonMenu(){
         generalController.insertIntoRecordsTable(getRecordOfCurrentUser());
         //todo Limor: use getHighScoreTable that Gal Wrote
+        User u = generalController.getUser();
+        generalController.resetGame();
+        generalController.startGame(u);
         changeScreen("../view/MainMenu.fxml");
     }
 

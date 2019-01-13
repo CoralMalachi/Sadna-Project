@@ -219,7 +219,10 @@ public class Model implements model.IModel {
     public void startGame(User user) {
         this.state.setUser(user);
         Entity e;
-        while ((e = getEntity())== null){
+        while ((e = getEntity())== null ){
+            if (getHintList().size()<5){
+                continue;
+            }
             this.state.setEntity(e);
         }
         this.state.setEntity(e);

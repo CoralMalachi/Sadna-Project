@@ -18,6 +18,8 @@ public class GamePageController implements Initializable {
     private TextField answerTextBox = new TextField();
     @FXML
     private TextArea textArea = new TextArea();
+    @FXML
+    private Button getHintButton = new Button();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -38,11 +40,20 @@ public class GamePageController implements Initializable {
      */
     public void pressGetHintButton(){
         Hint hint = generalController.getHint();
-        updateCurrentScore();
-        if (generalController.getScore() == 0){
-            changeScreen("../view/Lose.fxml");
+        if (hint == null ||  hint.info == null || hint.hintType == null){
+            Alert noMoreHintAlert = new Alert(Alert.AlertType.WARNING);
+            noMoreHintAlert.setTitle("There are no more hints");
+            noMoreHintAlert.setContentText("Please try to guess or use the cheat button");
+            noMoreHintAlert.showAndWait();
+            this.getHintButton.disabledProperty();
         } else {
-            this.textArea.appendText(hint.info+"\n");
+            updateCurrentScore();
+            if (generalController.getScore() == 0){
+                changeScreen("../view/Lose.fxml");
+            } else {
+                String description;
+                this.textArea.appendText(hint.info+"\n");
+            }
         }
     }
 
