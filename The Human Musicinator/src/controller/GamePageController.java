@@ -69,7 +69,7 @@ public class GamePageController implements Initializable {
                 return "The type of the artist is: ";
             }
             case "artistBornAreaTypeQuery":{
-                return "The was born in: ";
+                return "The artist was born in a: ";
             }
             case "englishAlbumOfArtist": {
                 return "The name of the artist's English album is: ";
