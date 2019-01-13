@@ -20,12 +20,14 @@ public class RegisterController {
      * The function is responsible for the user registration
      */
     public void pressButtonSubmit(){
+        Boolean flag = true;
         //check if the text boxes are empty
         if(this.userNameTextBox.getText() == null || this.userNameTextBox.getText().trim().isEmpty()){
             Alert emptyUserNameAlert = new Alert(Alert.AlertType.WARNING);
             emptyUserNameAlert.setTitle("Enter user name");
             emptyUserNameAlert.setContentText("Please enter user name");
             emptyUserNameAlert.showAndWait();
+            flag = false;
         }
 
         if(this.passwordTextBox.getText() == null || this.passwordTextBox.getText().trim().isEmpty()){
@@ -33,22 +35,24 @@ public class RegisterController {
             emptyUserNameAlert.setTitle("Enter user password");
             emptyUserNameAlert.setContentText("Please enter your password");
             emptyUserNameAlert.showAndWait();
+            flag = false;
         }
 
         String userName = this.userNameTextBox.getText();
         String userPassword = this.passwordTextBox.getText();
-
-        if(isValidUserDetails(userName, userPassword)){
-            User registerUser = new User();
-            registerUser.username = userName;
-            registerUser.password = userPassword;
-            if (this.generalController.registerUser(registerUser)){
-                changeScreen("../view/Login.fxml");
-            } else {
-                Alert emptyUserNameAlert = new Alert(Alert.AlertType.WARNING);
-                emptyUserNameAlert.setTitle("The user name is already in use");
-                emptyUserNameAlert.setContentText("Please choose different user name");
-                emptyUserNameAlert.showAndWait();
+        if (flag){
+            if(isValidUserDetails(userName, userPassword)) {
+                User registerUser = new User();
+                registerUser.username = userName;
+                registerUser.password = userPassword;
+                if (this.generalController.registerUser(registerUser)) {
+                    changeScreen("../view/Login.fxml");
+                } else {
+                    Alert emptyUserNameAlert = new Alert(Alert.AlertType.WARNING);
+                    emptyUserNameAlert.setTitle("The user name is already in use");
+                    emptyUserNameAlert.setContentText("Please choose different user name");
+                    emptyUserNameAlert.showAndWait();
+                }
             }
         }
     }

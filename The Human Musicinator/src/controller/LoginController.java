@@ -22,12 +22,14 @@ public class LoginController {
      * The function is responsible for the user login
      */
     public void pressButtonLogin() {
+        Boolean flag = true;
         //check if the text boxes are empty
         if(this.userNameTextBox.getText() == null || this.userNameTextBox.getText().trim().isEmpty()){
             Alert emptyUserNameAlert = new Alert(Alert.AlertType.WARNING);
             emptyUserNameAlert.setTitle("Enter user name");
             emptyUserNameAlert.setContentText("Please enter user name");
             emptyUserNameAlert.showAndWait();
+            flag = false;
         }
 
         if(this.passwordTextBox.getText() == null || this.passwordTextBox.getText().trim().isEmpty()){
@@ -35,6 +37,7 @@ public class LoginController {
             emptyUserNameAlert.setTitle("Enter user password");
             emptyUserNameAlert.setContentText("Please enter your password");
             emptyUserNameAlert.showAndWait();
+            flag = false;
         }
 
         String userName = this.userNameTextBox.getText();
@@ -56,18 +59,19 @@ public class LoginController {
             wrongIdAlert.setContentText("user password should made only of letters and numbers");
             wrongIdAlert.showAndWait();
         }
-
-        if (isUserExistInDB(userName, userPassword)) {
-            User newUser = new User();
-            newUser.username = userName;
-            newUser.password = userPassword;
-            generalController.startGame(newUser);
-            changeScreen("../view/GamePage.fxml");
-        } else {
-            Alert userNotExistAlert = new Alert(Alert.AlertType.WARNING);
-            userNotExistAlert.setTitle("Please register before trying to login");
-            userNotExistAlert.setContentText("If you are already registered, check the details you entered");
-            userNotExistAlert.showAndWait();
+        if(flag){
+            if (isUserExistInDB(userName, userPassword)) {
+                User newUser = new User();
+                newUser.username = userName;
+                newUser.password = userPassword;
+                generalController.startGame(newUser);
+                changeScreen("../view/GamePage.fxml");
+            } else {
+                Alert userNotExistAlert = new Alert(Alert.AlertType.WARNING);
+                userNotExistAlert.setTitle("Please register before trying to login");
+                userNotExistAlert.setContentText("If you are already registered, check the details you entered");
+                userNotExistAlert.showAndWait();
+            }
         }
     }
 
