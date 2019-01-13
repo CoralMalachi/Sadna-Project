@@ -204,7 +204,7 @@ public class Model implements model.IModel {
         int numOfHints = state.getMaxNumOfHints();
         List<String> keys = new ArrayList<>(Queries.HINT_QUERY_MAP.keySet());
         for (int i = 0; i < numOfHints; i++) {
-            String randomKey = keys.get(random.nextInt(keys.size()));
+            String randomKey = keys.get(random.nextInt(keys.size()-1));
             keys.remove(randomKey);
             String randomQuery = Queries.HINT_QUERY_MAP.get(randomKey);
             Hint hint = executeQuery(randomQuery);
@@ -216,17 +216,26 @@ public class Model implements model.IModel {
         return hintList;
     }
 
+    public boolean isArtistNameValid(String artistName){
+        System.out.println("the entity nme is :"+artistName);
+        return artistName.matches("[a-zA-Z0-9 ]*");
+    }
+
     public void startGame(User user) {
         this.state.setUser(user);
-        Entity e;
-        while ((e = getEntity())== null ){
-            if (getHintList().size()<5){
-                continue;
-            }
-            this.state.setEntity(e);
-        }
+        Entity e= getEntity();
         this.state.setEntity(e);
-        this.state.setHintList(getHintList());
+        List<Hint> coral = getHintList();
+        this.state.setHintList(coral);
+        System.out.println(coral.size());
+        if (e != null &&  isArtistNameValid(e.name)){ /*&& coral.size()>=5){*/
+            System.out.println(coral.size());
+            this.state.setEntity(e);
+            this.state.setHintList(getHintList());
+        } else {
+            //the entity is not ok
+
+        }
     }    
 
     public boolean validateUserGuess(String userGuess) {

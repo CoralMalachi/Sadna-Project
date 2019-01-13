@@ -132,7 +132,7 @@ public class GameState {
         this.hasWon = false;
         this.isFinished = false;
         this.numOfHintsGiven = 0;
-        this.maxNumOfHints = 5;
+        this.maxNumOfHints = 7;
 
     }
 
