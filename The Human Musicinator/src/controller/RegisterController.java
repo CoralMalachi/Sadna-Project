@@ -56,6 +56,7 @@ public class RegisterController {
             }
         }
     }
+
     private void changeScreen(String path){
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(path));

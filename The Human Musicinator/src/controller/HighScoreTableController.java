@@ -11,29 +11,30 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import util.Record;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class HighScoreTableController implements Initializable {
     private GeneralController generalController = GeneralController.getInstance();
     @FXML
-    private TableView<Record> highScoreTable = new TableView<Record>() ;
+    private TableView<Record> highScoreTable ;
     @FXML
-    public TableColumn<Record, Integer> userNameCol;
+    public TableColumn<Record, String> userNameCol;
     @FXML
-    public TableColumn<Record, String> scoreCol;
-
+    public TableColumn<Record, Integer> scoreCol;
     @Override
     public void initialize(URL location, ResourceBundle rb) {
+        //highScoreTable.setEditable(true);
+        List<Record> galList = this.generalController.getModel().getHighScoreTable();
+
+        ObservableList<Record> recordList = FXCollections.observableArrayList();
+        for (Record r : galList){
+            recordList.add(r);
+        }
         //make sure the property value factory should be exactly same as the e.g getStudentId from your model class
         userNameCol.setCellValueFactory(new PropertyValueFactory<>("userNameCol"));
         scoreCol.setCellValueFactory(new PropertyValueFactory<>("scoreCol"));
-
-        // add your data here from any source
-        Record r = new Record();
-        r.username = "Limor";
-        r.score = 100;
-         ObservableList<Record> recordList = FXCollections.observableArrayList(r);
-
         this.highScoreTable.setItems(recordList);
 
     }
