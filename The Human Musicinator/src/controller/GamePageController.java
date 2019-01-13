@@ -19,12 +19,12 @@ public class GamePageController implements Initializable {
     @FXML
     private TextArea textArea = new TextArea();
     @FXML
-    private Button getHintButton = new Button();
+    private Label maskEntityLabel = new Label();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.scoreLabel.setText(String.valueOf(generalController.getScore()));
-        this.answerTextBox.setText(this.generalController.getModel().getMaskedEntityName());
+        this.maskEntityLabel.setText(this.generalController.getModel().getMaskedEntityName());
     }
     @FXML
     /**
