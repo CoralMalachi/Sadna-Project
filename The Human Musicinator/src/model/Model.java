@@ -221,14 +221,14 @@ public class Model implements model.IModel {
         return artistName.matches("[a-zA-Z0-9 ]*");
     }
 
-    public void startGame(User user) {
+    /*public void startGame(User user) {
         this.state.setUser(user);
         Entity e= getEntity();
-        this.state.setEntity(e);
+        //this.state.setEntity(e);
         List<Hint> coral = getHintList();
         this.state.setHintList(coral);
         System.out.println(coral.size());
-        if (e != null &&  isArtistNameValid(e.name)){ /*&& coral.size()>=5){*/
+        if (e != null &&  isArtistNameValid(e.name)){ *//*&& coral.size()>=5){*//*
             System.out.println(coral.size());
             this.state.setEntity(e);
             this.state.setHintList(getHintList());
@@ -236,7 +236,30 @@ public class Model implements model.IModel {
             //the entity is not ok
 
         }
-    }    
+    }    */
+
+    public void startGame(User user) {
+        this.state.setUser(user);
+        Entity e= getEntity();
+        this.state.setEntity(e);
+        List<Hint> coral = getHintList();
+        //this.state.setHintList(coral);
+        int hintSize = coral.size();
+        System.out.println(coral.size());
+        while (e == null ||  !isArtistNameValid(e.name) || hintSize<5) { /*&& coral.size()>=5){*/
+            System.out.println(coral.size());
+            e = getEntity();
+            this.state.setEntity(e);
+            coral = getHintList();
+            //this.state.setHintList(coral);
+            hintSize = coral.size();
+            //
+        }
+        this.state.setEntity(e);
+        this.state.setHintList(coral);
+
+
+    }
 
     public boolean validateUserGuess(String userGuess) {
         return state.validateUserGuess(userGuess);
