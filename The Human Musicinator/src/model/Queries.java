@@ -58,11 +58,14 @@ public final class Queries {
              HINT_QUERY_MAP.put("artistTypeQuery", "SELECT artist_type.name FROM artist_type INNER JOIN artist ON artist_type.id=artist.type and artist.id = ?");
              HINT_QUERY_MAP.put("artistBornAreaTypeQuery", "SELECT area_type.name FROM area_type INNER JOIN area INNER JOIN artist ON area_type.id=area.type and area.id=artist.area and artist.id = ?");
 
-             //Todo: Coral Changed it, now it takes less time and take only id as argument. GAL: if you dont need the id remove it
-             HINT_QUERY_MAP.put("englishAlbumOfArtist","select `release`.id,`release`.name from `release` INNER JOIN release_group ON release_group.id=`release`.release_group and release_group.type=(select id from release_group_primary_type where release_group_primary_type.name=\"Album\")\n" +
-                     "              where `release`.language=(select id from language where language.name=\"English\") and `release`.artist_credit= ? ORDER BY RAND() LIMIT 1");
+            HINT_QUERY_MAP.put("englishAlbumOfArtist","select `release`.name from `release` INNER JOIN release_group ON release_group.id=`release`.release_group and release_group.type=(select id from release_group_primary_type where release_group_primary_type.name=\"Album\")\n" +
+                 "              where `release`.language=(select id from language where language.name=\"English\") and `release`.artist_credit= ? ORDER BY RAND() LIMIT 1");
 
-             HINT_QUERY_MAP.put("englishSingleOfArtist","select `release`.id,`release`.name from `release` INNER JOIN release_group ON release_group.id=`release`.release_group and release_group.type=(select id from release_group_primary_type where release_group_primary_type.name=\"Single\")\n" +
+         //Todo: Coral Changed it, now it takes less time and take only id as argument. GAL: if you dont need the id remove it
+             /*HINT_QUERY_MAP.put("englishAlbumOfArtist","select `release`.id,`release`.name from `release` INNER JOIN release_group ON release_group.id=`release`.release_group and release_group.type=(select id from release_group_primary_type where release_group_primary_type.name=\"Album\")\n" +
+                     "              where `release`.language=(select id from language where language.name=\"English\") and `release`.artist_credit= ? ORDER BY RAND() LIMIT 1");
+*/
+             HINT_QUERY_MAP.put("englishSingleOfArtist","select `release`.name from `release` INNER JOIN release_group ON release_group.id=`release`.release_group and release_group.type=(select id from release_group_primary_type where release_group_primary_type.name=\"Single\")\n" +
                  "              where `release`.language=(select id from language where language.name=\"English\") and `release`.artist_credit= ? ORDER BY RAND() LIMIT 1");
              //QUERY_MAP.put("easySingleOfArtistQuery", "select `release`.id,`release`.name from `release` INNER JOIN release_country on release_country.release=`release`.id  INNER JOIN release_group ON release_group.id=`release`.release_group and release_group.type=(select id from release_group_primary_type where release_group_primary_type.name= ?)\n" +
              //" where `release`.language=(select id from language where language.name=\"English\") and `release`.artist_credit=(select id from artist_credit where artist_credit.name= ? limit 1) and release_country.date_year>2000 ORDER BY RAND() LIMIT 1");
