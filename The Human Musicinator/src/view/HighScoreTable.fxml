@@ -5,11 +5,12 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.HighScoreTableController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #5394fc" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.HighScoreTableController">
   <children>
-    <Label layoutX="146.0" layoutY="14.0" prefWidth="308.0" text="High Score table">
+    <Label layoutX="146.0" layoutY="14.0" prefWidth="308.0" text="High Score table" textFill="WHITE">
       <font>
         <Font size="40.0" />
       </font>
@@ -20,7 +21,11 @@
         <TableColumn id="scoreCol" maxWidth="5000.0" minWidth="10.0" prefWidth="227.0" text="Score" fx:id="scoreCol" />
       </columns>
     </TableView>
-    <Button fx:id="backToMenuButton" layoutX="115.0" layoutY="331.0" mnemonicParsing="false" onAction="#pressGoToMenuButton" prefHeight="32.0" prefWidth="165.0" text="go back to menu" />
-    <Button fx:id="exitButton" layoutX="404.0" layoutY="331.0" mnemonicParsing="false" onAction="#pressExitButton" prefHeight="32.0" prefWidth="59.0" text="exit" />
+    <Button fx:id="backToMenuButton" defaultButton="false" layoutX="115.0" layoutY="331.0" mnemonicParsing="false" onAction="#pressGoToMenuButton" prefHeight="32.0" prefWidth="165.0" text="go back to menu">
+      <textFill>
+        <Color blue="1.000" green="0.400" red="0.000" fx:id="x1" />
+      </textFill>
+    </Button>
+    <Button fx:id="exitButton" defaultButton="false" layoutX="404.0" layoutY="331.0" mnemonicParsing="false" onAction="#pressExitButton" prefHeight="32.0" prefWidth="59.0" text="exit" textFill="$x1" />
   </children>
 </AnchorPane>

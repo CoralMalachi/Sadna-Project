@@ -5,18 +5,23 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.MainMenuController">
+<AnchorPane disable="false" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #5394fc" visible="true" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.MainMenuController">
   <children>
-    <Label layoutX="78.0" layoutY="36.0" text="The Human Musicinator">
+    <Label layoutX="78.0" layoutY="36.0" text="The Human Musicinator" textFill="WHITE">
       <font>
         <Font size="40.0" />
       </font>
     </Label>
-    <Button fx:id="loginButton" layoutX="228.0" layoutY="188.0" mnemonicParsing="false" onAction="#pressLoginButton" prefHeight="44.0" prefWidth="160.0" text="Login" />
-    <Button fx:id="registerButton" layoutX="228.0" layoutY="125.0" mnemonicParsing="false" onAction="#pressRegisterButton" prefHeight="44.0" prefWidth="160.0" text="Register" />
-    <Button fx:id="highScoreTableButton" layoutX="228.0" layoutY="247.0" mnemonicParsing="false" onAction="#pressShowHighScoreTableButton" prefHeight="44.0" prefWidth="160.0" text="High score table" />
-    <Button fx:id="exitButton" layoutX="228.0" layoutY="309.0" mnemonicParsing="false" onAction="#pressExitButton" prefHeight="44.0" prefWidth="160.0" text="Exit" />
+    <Button fx:id="loginButton" defaultButton="false" layoutX="210.0" layoutY="188.0" mnemonicParsing="false" onAction="#pressLoginButton" prefHeight="44.0" prefWidth="160.0" text="Login">
+      <textFill>
+        <Color blue="1.000" green="0.640" red="0.000" fx:id="x1" />
+      </textFill>
+    </Button>
+    <Button fx:id="registerButton" cancelButton="false" defaultButton="false" layoutX="210.0" layoutY="125.0" mnemonicParsing="false" onAction="#pressRegisterButton" prefHeight="44.0" prefWidth="160.0" text="Register" textFill="$x1" underline="false" wrapText="false" />
+    <Button fx:id="highScoreTableButton" defaultButton="false" layoutX="210.0" layoutY="247.0" mnemonicParsing="false" onAction="#pressShowHighScoreTableButton" prefHeight="44.0" prefWidth="160.0" text="High score table" textFill="$x1" />
+    <Button fx:id="exitButton" defaultButton="false" layoutX="210.0" layoutY="309.0" mnemonicParsing="false" onAction="#pressExitButton" prefHeight="44.0" prefWidth="160.0" text="Exit" textFill="$x1" />
   </children>
 </AnchorPane>

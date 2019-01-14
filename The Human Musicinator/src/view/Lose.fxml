@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="706.0" prefWidth="652.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoseController">
+<AnchorPane prefHeight="706.0" prefWidth="652.0" style="-fx-background-color: #5394fc" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.LoseController">
   <children>
-    <Label layoutX="215.0" layoutY="14.0" prefHeight="71.0" prefWidth="239.0" text="You Lose">
+    <Label layoutX="215.0" layoutY="14.0" prefHeight="71.0" prefWidth="239.0" text="You Lose" textFill="WHITE">
       <font>
         <Font size="49.0" />
       </font>
@@ -19,11 +25,14 @@
         <Image url="@Lose.jpg" />
       </image>
     </ImageView>
-    <Button fx:id="playAgainEvent" layoutX="412.0" layoutY="491.0" mnemonicParsing="false" onAction="#pressButtonPlayAgain" prefHeight="64.0" prefWidth="128.0" text="Play again">
+    <Button fx:id="playAgainEvent" defaultButton="false" layoutX="412.0" layoutY="491.0" mnemonicParsing="false" onAction="#pressButtonPlayAgain" prefHeight="64.0" prefWidth="128.0" text="Play again">
       <font>
         <Font size="18.0" fx:id="x1" />
       </font>
+      <textFill>
+        <Color blue="1.000" green="0.400" red="0.000" fx:id="x2" />
+      </textFill>
     </Button>
-    <Button fx:id="backMenuEvent" font="$x1" layoutX="76.0" layoutY="491.0" mnemonicParsing="false" onAction="#pressButtonMenu" prefHeight="64.0" prefWidth="239.0" text="Go back to menu" />
+    <Button fx:id="backMenuEvent" defaultButton="false" font="$x1" layoutX="76.0" layoutY="491.0" mnemonicParsing="false" onAction="#pressButtonMenu" prefHeight="64.0" prefWidth="239.0" text="Go back to menu" textFill="$x2" />
   </children>
 </AnchorPane>
