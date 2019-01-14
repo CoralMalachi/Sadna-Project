@@ -73,10 +73,10 @@ public class GamePageController implements Initializable {
                 return "The artist was born in a: ";
             }
             case "englishAlbumOfArtist": {
-                return "The name of the artist's English album is: ";
+                return "Name of one of the artist's albums is: ";
             }
             case "englishSingleOfArtist":{
-                return "The name of the artist's English single is: ";
+                return "Name of one of the artist's singles is: ";
             }
             case "numberOfArtistAlbumsQuery": {
                 return "The number of albums of the artist is: ";
