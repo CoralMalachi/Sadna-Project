@@ -6,6 +6,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.awt.*;
+
 public class Main extends Application {
     public static Stage stage = new Stage();
     public static void main(String[] args) {
@@ -19,7 +22,7 @@ public class Main extends Application {
         loader.setLocation(getClass().getResource("../view/MainMenu.fxml"));
         Parent root = loader.load();
         primaryStage.setTitle("The Human Musicinator");
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setScene(new Scene(root, 900, 700));
         primaryStage.show();
     }
 }

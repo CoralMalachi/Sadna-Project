@@ -62,7 +62,7 @@ public class RegisterController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(path));
             fxmlLoader.setRoot(fxmlLoader.load());
             this.generalController.getStage().hide();
-            this.generalController.getStage().setScene(new Scene(fxmlLoader.getRoot()));
+            this.generalController.getStage().setScene(new Scene(fxmlLoader.getRoot(), 900, 700));
             this.generalController.getStage().show();
         } catch(Exception e) {
             e.printStackTrace();
