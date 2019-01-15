@@ -24,6 +24,8 @@ public class Model implements model.IModel {
 
     private model.GameState state;
 
+    private static String entityQuery = "select artist.id,artist.name from artist inner join artist_meta on artist_meta.id=artist.id where artist_meta.rating>85 and artist_meta.rating_count>3 order by rand() limit 1";
+
     /**
      * Constructor.
      */
@@ -153,15 +155,10 @@ public class Model implements model.IModel {
     }
 
     public Entity getEntity() {
-         Random random = new Random();
-         List<String> keys = new ArrayList<>(Queries.RANDOM_ID_QUERY_MAP.keySet());
-         String randomKey = keys.get(random.nextInt(keys.size()));
-         String randomQuery = Queries.RANDOM_ID_QUERY_MAP.get(randomKey);
         try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            // PreparedStatement stmt = conn.prepareStatement("SELECT id, name FROM artist ORDER BY RAND() LIMIT 1")) {
-            PreparedStatement stmt = conn.prepareStatement(randomQuery)) {
+            PreparedStatement stmt = conn.prepareStatement(entityQuery)) {
 
-                ResultSet rs = stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 Entity entity = new Entity();
                 entity.id = rs.getInt("id");
@@ -222,23 +219,6 @@ public class Model implements model.IModel {
         return artistName.matches("[a-zA-Z0-9 ]*");
     }
 
-    /*public void startGame(User user) {
-        this.state.setUser(user);
-        Entity e= getEntity();
-        //this.state.setEntity(e);
-        List<Hint> coral = getHintList();
-        this.state.setHintList(coral);
-        System.out.println(coral.size());
-        if (e != null &&  isArtistNameValid(e.name)){ *//*&& coral.size()>=5){*//*
-            System.out.println(coral.size());
-            this.state.setEntity(e);
-            this.state.setHintList(getHintList());
-        } else {
-            //the entity is not ok
-
-        }
-    }    */
-
     public void startGame(User user) {
         this.state.setUser(user);
         Entity e;
@@ -249,7 +229,7 @@ public class Model implements model.IModel {
                 this.state.setEntity(e);
                 hintList = getHintList();
             }
-        } while (hintList == null || !isStringValid(e.name) || hintList.size() < state.getMaxNumOfHints());
+        } while (hintList == null || e == null || !isStringValid(e.name) || hintList.size() < state.getMaxNumOfHints());
         this.state.setEntity(e);
         this.state.setHintList(hintList);
     }

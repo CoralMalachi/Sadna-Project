@@ -33,7 +33,7 @@ public class GameState {
 
     public void setEntity(Entity entity) {
         this.entity = entity;
-        this.maskedEntityName = Masker.mask(entity.name, 5, "*");
+        this.maskedEntityName = Masker.mask(entity.name, 3, "*");
     }
 
     public Entity getEntity() {
@@ -144,7 +144,7 @@ public class GameState {
         this.hasWon = false;
         this.isFinished = false;
         this.numOfHintsGiven = 0;
-        this.maxNumOfHints = 5;
+        this.maxNumOfHints = 7;
 
     }
 
