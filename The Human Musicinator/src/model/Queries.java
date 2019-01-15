@@ -2,33 +2,8 @@ package model;
 
 import java.util.Map;
 import java.util.HashMap;
-//Todo: tables we need:
-/*
-    new tables :
-
-    release_group_primary_type
-    release_group
-    release
-    area_type
-    language
-    artist_credit
-    artist_credit_name
-    artist_alias
-    country_area
-
-    old:
-
-    area
-    artist
-    track
-
-    gender
-    recording - ?
-    l_artist_artist - ??
 
 
-
- */
 
 /**
  * Created by user on 22/12/2018.
@@ -74,6 +49,9 @@ public final class Queries {
 
              HINT_QUERY_MAP.put("numberOfArtistAlbumsQuery","select DISTINCT count(`release`.id) from `release` INNER JOIN release_group ON release_group.id=`release`.release_group and release_group.type=(select id from release_group_primary_type where release_group_primary_type.name=\"Album\") \n" +
                     "             and `release`.artist_credit= ?");
+
+             HINT_QUERY_MAP.put("numberOfSingleAlbumsQuery","select DISTINCT count(`release`.id) from `release` INNER JOIN release_group ON release_group.id=`release`.release_group and release_group.type=(select id from release_group_primary_type where release_group_primary_type.name=\"Single\") \n" +
+                 "             and `release`.artist_credit= ?");
 
 
              HINT_QUERY_MAP.put("mostFreqReleasesAreaOfArtistQuery","select area.name from area where area.id=(\n" +
