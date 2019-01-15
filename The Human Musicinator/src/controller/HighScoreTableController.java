@@ -25,7 +25,6 @@ public class HighScoreTableController implements Initializable {
     public TableColumn<Record, Integer> scoreCol;
     @Override
     public void initialize(URL location, ResourceBundle rb) {
-        //highScoreTable.setEditable(true);
         List<Record> galList = this.generalController.getModel().getHighScoreTable();
 
         ObservableList<Record> recordList = FXCollections.observableArrayList(galList);

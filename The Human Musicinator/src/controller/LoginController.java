@@ -11,7 +11,6 @@ import util.User;
 
 public class LoginController {
     private GeneralController generalController = GeneralController.getInstance();
-
     @FXML
     private PasswordField passwordTextBox;
     @FXML

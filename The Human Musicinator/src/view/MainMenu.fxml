@@ -21,7 +21,7 @@
       </textFill>
     </Button>
     <Button fx:id="registerButton" cancelButton="false" defaultButton="false" layoutX="370.0" layoutY="197.0" mnemonicParsing="false" onAction="#pressRegisterButton" prefHeight="44.0" prefWidth="160.0" text="Register" textFill="$x1" underline="false" wrapText="false" />
-    <Button fx:id="highScoreTableButton" defaultButton="false" layoutX="370.0" layoutY="350.0" mnemonicParsing="false" onAction="#pressShowHighScoreTableButton" prefHeight="44.0" prefWidth="160.0" text="High score table" textFill="$x1" />
+    <Button fx:id="highScoreTableButton" defaultButton="false" layoutX="371.0" layoutY="341.0" mnemonicParsing="false" onAction="#pressShowHighScoreTableButton" prefHeight="44.0" prefWidth="160.0" text="High score table" textFill="$x1" />
     <Button fx:id="exitButton" defaultButton="false" layoutX="370.0" layoutY="415.0" mnemonicParsing="false" onAction="#pressExitButton" prefHeight="44.0" prefWidth="160.0" text="Exit" textFill="$x1" />
   </children>
 </AnchorPane>

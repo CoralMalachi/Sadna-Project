@@ -10,7 +10,6 @@ import util.User;
 
 public class RegisterController {
     private GeneralController generalController = GeneralController.getInstance();
-
     @FXML
     private PasswordField passwordTextBox;
     @FXML

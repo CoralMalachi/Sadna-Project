@@ -5,8 +5,6 @@ import util.Record;
 import util.User;
 
 public interface IController {
-//    boolean maskEntity();
-//    boolean hasGameEnded();
     Hint getHint();
 
     int getScore();

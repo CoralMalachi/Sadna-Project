@@ -51,7 +51,6 @@ public class GamePageController implements Initializable {
                 updateCurrentScore();
                 String description = getDescriptionOfHint(hint.hintType);
                 this.textArea.appendText(description + hint.info + "\n");
-
             }
         }
     }

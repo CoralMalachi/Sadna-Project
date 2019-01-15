@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="700.0" prefWidth="900.0" style="-fx-background-color: #5394fc" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="controller.HighScoreTableController">
   <children>
-    <Label layoutX="289.0" layoutY="63.0" prefWidth="308.0" text="High Score table" textFill="WHITE">
+    <Label layoutX="289.0" layoutY="63.0" prefWidth="363.0" text="High Score table" textFill="WHITE">
       <font>
         <Font size="40.0" />
       </font>
