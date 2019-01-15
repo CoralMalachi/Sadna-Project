@@ -67,7 +67,7 @@ public class GamePageController implements Initializable {
                 return "The artist's gender is: ";
             }
             case "artistTypeQuery":{
-                return "The type of the artist is: ";
+                return "The type of the artist is(Person/Band): ";
             }
             case "artistBornAreaTypeQuery":{
                 return "The artist was born in a: ";
