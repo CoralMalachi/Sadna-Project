@@ -1,9 +1,7 @@
 package model;
 
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.*;
 import java.sql.*;
 
 import util.User;
@@ -40,8 +38,9 @@ public class Model implements model.IModel {
     }
 
     private void readConfig() {
-        File file = new File("The Human Musicinator/src/config.txt");
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+        //File file = new File("../../src/config.txt");
+        try (InputStream in = getClass().getResourceAsStream("/config.txt");
+             BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
             JDBC_DRIVER = br.readLine().replaceFirst("JDBC_DRIVER=", "");
             DB_URL = br.readLine().replaceFirst("DB_URL=", "");
             USER = br.readLine().replaceFirst("USER=", "");

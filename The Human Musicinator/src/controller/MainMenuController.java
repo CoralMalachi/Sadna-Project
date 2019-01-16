@@ -13,7 +13,7 @@ public class MainMenuController {
      * The function changes the current screen to the registration page
      */
     public void pressRegisterButton() throws IOException {
-        changeScreen("../view/Register.fxml");
+        changeScreen("/resources/Register.fxml");
     }
 
     @FXML
@@ -41,7 +41,7 @@ public class MainMenuController {
      * The function changes the current screen to the login page
      */
     public void pressLoginButton() throws IOException{
-        changeScreen("../view/Login.fxml");
+        changeScreen("/resources/Login.fxml");
     }
 
     @FXML
@@ -49,6 +49,6 @@ public class MainMenuController {
      * The function changes the current screen to the high score table page
      */
     public void pressShowHighScoreTableButton() throws IOException{
-        changeScreen("../view/HighScoreTable.fxml");
+        changeScreen("/resources/HighScoreTable.fxml");
     }
 }

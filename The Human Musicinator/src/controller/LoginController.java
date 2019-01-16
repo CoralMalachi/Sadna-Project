@@ -64,11 +64,11 @@ public class LoginController {
                 newUser.username = userName;
                 newUser.password = userPassword;
                 generalController.startGame(newUser);
-                changeScreen("../view/GamePage.fxml");
+                changeScreen("/resources/GamePage.fxml");
             } else {
                 Alert userNotExistAlert = new Alert(Alert.AlertType.WARNING);
                 userNotExistAlert.setTitle("Please register before trying to login");
-                userNotExistAlert.setContentText("If you are already registered, check the details you entered");
+                userNotExistAlert.setContentText("Username/Password not correct");
                 userNotExistAlert.showAndWait();
             }
         }

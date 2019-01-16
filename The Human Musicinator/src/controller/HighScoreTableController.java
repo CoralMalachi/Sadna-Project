@@ -48,7 +48,7 @@ public class HighScoreTableController implements Initializable {
      */
     public void pressGoToMenuButton(){
         generalController.resetGame();
-        changeScreen("../view/MainMenu.fxml");
+        changeScreen("/resources/MainMenu.fxml");
     }
 
     private void changeScreen(String path){

@@ -45,7 +45,7 @@ public class RegisterController {
                 registerUser.username = userName;
                 registerUser.password = userPassword;
                 if (this.generalController.registerUser(registerUser)) {
-                    changeScreen("../view/Login.fxml");
+                    changeScreen("/resources/Login.fxml");
                 } else {
                     Alert emptyUserNameAlert = new Alert(Alert.AlertType.WARNING);
                     emptyUserNameAlert.setTitle("The user name is already in use");

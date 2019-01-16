@@ -21,7 +21,7 @@ public class LoseController {
         User u = generalController.getUser();
         generalController.resetGame();
         generalController.startGame(u);
-        changeScreen("../view/GamePage.fxml");
+        changeScreen("/resources/GamePage.fxml");
     }
 
     @FXML
@@ -33,10 +33,8 @@ public class LoseController {
         if (getRecordOfCurrentUser().score > 0){
             generalController.insertIntoRecordsTable(getRecordOfCurrentUser());
         }
-        User u = generalController.getUser();
         generalController.resetGame();
-        generalController.startGame(u);
-        changeScreen("../view/MainMenu.fxml");
+        changeScreen("/resources/MainMenu.fxml");
     }
 
     private void changeScreen(String path){

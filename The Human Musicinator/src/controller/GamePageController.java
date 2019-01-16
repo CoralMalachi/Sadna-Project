@@ -44,7 +44,7 @@ public class GamePageController implements Initializable {
             noMoreHintAlert.setTitle("There are no more hints");
             noMoreHintAlert.setContentText("Game Over");
             noMoreHintAlert.showAndWait();
-            changeScreen("../view/Lose.fxml");
+            changeScreen("/resources/Lose.fxml");
         } else {
             Hint hint = generalController.getHint();
             if (hint != null && hint.info != null && hint.hintType != null) {
@@ -113,7 +113,7 @@ public class GamePageController implements Initializable {
     public void pressCheckPatternButton() {
         if (generalController.validateUserGuess(this.answerTextBox.getText())) {
             if (generalController.checkUserGuess(this.answerTextBox.getText())) {
-                changeScreen("../view/Win.fxml");
+                changeScreen("/resources/Win.fxml");
             } else {
                 Alert wrongAnswerAlert = new Alert(Alert.AlertType.WARNING);
                 wrongAnswerAlert.setTitle("Wrong answer");

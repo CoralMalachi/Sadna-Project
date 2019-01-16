@@ -19,7 +19,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         //initialize the general controller of the application
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../view/MainMenu.fxml"));
+        loader.setLocation(getClass().getResource("/resources/MainMenu.fxml"));
         Parent root = loader.load();
         primaryStage.setTitle("The Human Musicinator");
         primaryStage.setScene(new Scene(root, 900, 700));
