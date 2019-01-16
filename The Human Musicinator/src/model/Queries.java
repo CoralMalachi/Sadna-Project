@@ -36,8 +36,12 @@ public final class Queries {
              //QUERY_MAP.put("easySingleOfArtistQuery", "select `release`.id,`release`.name from `release` INNER JOIN release_country on release_country.release=`release`.id  INNER JOIN release_group ON release_group.id=`release`.release_group and release_group.type=(select id from release_group_primary_type where release_group_primary_type.name= ?)\n" +
              //" where `release`.language=(select id from language where language.name=\"English\") and `release`.artist_credit=(select id from artist_credit where artist_credit.name= ? limit 1) and release_country.date_year>2000 ORDER BY RAND() LIMIT 1");
 
-             HINT_QUERY_MAP.put("numberOfArtistAlbumsQuery","select DISTINCT count(`release`.id) from `release` INNER JOIN release_group ON release_group.id=`release`.release_group and release_group.type=(select id from release_group_primary_type where release_group_primary_type.name=\"Album\") \n" +
-                    "             and `release`.artist_credit= ?");
+             HINT_QUERY_MAP.put("numberOfArtistAlbumsQuery","select count(distinct team06.release_group.name) from team06.release_group \n" +
+                     "inner join team06.release on release_group.id=team06.release.release_group\n" +
+                     "where  release_group.type=(\n" +
+                     "select id from team06.release_group_primary_type where name=\"Album\")\n" +
+                     " and team06.release_group.artist_credit= ? and  team06.release_group.name regexp '^[A-za-z ]+$'");
+
 
              HINT_QUERY_MAP.put("numberOfSingleAlbumsQuery","select DISTINCT count(`release`.id) from `release` INNER JOIN release_group ON release_group.id=`release`.release_group and release_group.type=(select id from release_group_primary_type where release_group_primary_type.name=\"Single\") \n" +
                  "             and `release`.artist_credit= ?");
